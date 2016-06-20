@@ -30,8 +30,20 @@ namespace geopunt4Arcgis.dataHandler
         
         public List<string> inpireAnnex = new List<string>(){ "", "i","ii","iii"};
 
-        public catalog(string proxyUrl = "", int port = 80, int timeout = 5000)
+        public catalog(string proxyUrl, int port, int timeout)
         {
+            this.init(proxyUrl, port, timeout);
+        }
+        public catalog( int timeout )
+        {
+            this.init("", 80, timeout);
+        }
+        public catalog()
+        {
+            this.init("", 80, 5000);
+        }
+
+        private void init(string proxyUrl, int port, int timeout) {
             if (proxyUrl == null || proxyUrl == "")
             {
                 client = new gpWebClient() { Encoding = System.Text.Encoding.UTF8, timeout= timeout };
@@ -44,8 +56,8 @@ namespace geopunt4Arcgis.dataHandler
             client.Headers["Content-type"] = "application/json";
             qryValues = new NameValueCollection();
         }
-
-        public List<string> getKeyWords(string q = "", string field = "any")
+        
+        public List<string> getKeyWords(string q, string field)
         {
             qryValues.Add("q", q);
             qryValues.Add("field", field);
@@ -60,6 +72,12 @@ namespace geopunt4Arcgis.dataHandler
             qryValues.Clear();
             client.QueryString.Clear();
             return keywords.Select(c => (string)c).ToList();
+        }
+        public List<string> getKeyWords(string q){
+            return getKeyWords(q, "any");
+        }
+        public List<string> getKeyWords(){
+            return getKeyWords("", "any");
         }
 
         public List<string> getOrganisations() {
@@ -104,7 +122,7 @@ namespace geopunt4Arcgis.dataHandler
             return sourcesDict;
         }
 
-        public List<string> getGDIthemes( string q="" ) {
+        public List<string> getGDIthemes( string q ) {
             List<string> GDIthemes = new List<string>();
             string url = geoNetworkUrl +
                 "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + q + "*";
@@ -119,10 +137,13 @@ namespace geopunt4Arcgis.dataHandler
 
             return GDIthemes;
         }
+        public List<string> getGDIthemes() {
+            return getGDIthemes("");
+        }
 
-        public datacontract.metadataResponse search(string q, int start = 1, int to = 20, 
-            string themekey="", string orgName="", string dataType="", string siteId="", 
-            string inspiretheme="", string inspireannex="", string inspireServiceType="") 
+        public datacontract.metadataResponse search(string q, int start, int to, 
+            string themekey, string orgName, string dataType, string siteId, 
+            string inspiretheme, string inspireannex, string inspireServiceType) 
         {
             qryValues.Add("fast", "index");
             qryValues.Add("sortBy", "changeDate");
@@ -184,16 +205,16 @@ namespace geopunt4Arcgis.dataHandler
         }
 
         public datacontract.metadataResponse searchAll(string q,
-            string themekey = "", string orgName = "", string dataType = "", string siteId = "",
-            string inspiretheme = "", string inspireannex = "", string inspireServiceType = "") 
+            string themekey, string orgName, string dataType, string siteId,
+            string inspiretheme, string inspireannex, string inspireServiceType) 
         {
             datacontract.metadataResponse metaResp = search(
-                q, 1, 20, themekey, orgName, dataType, siteId, inspireannex, inspireServiceType);
+                q, 1, 20, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType);
 
             for (int i = 21; i < metaResp.maxCount; i += 20) 
             {
                 datacontract.metadataResponse metaResp2 = search(
-                    q, i, i + 19, themekey, orgName, dataType, siteId, inspireannex, inspireServiceType);
+                    q, i, i + 19, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType);
 
                 metaResp.metadataRecords.AddRange( metaResp2.metadataRecords );
             }

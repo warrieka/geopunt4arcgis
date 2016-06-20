@@ -13,7 +13,20 @@ namespace geopunt4Arcgis.dataHandler
         public WebClient client;
         string baseUri;
 
-        public dhm(string proxyUrl = "", int port = 80, int timeout= 5000)
+        public dhm(string proxyUrl , int port , int timeout)
+        {
+            this.init(proxyUrl , port , timeout);
+        }
+        public dhm(int timeout)
+        {
+            this.init("", 80, timeout);
+        }
+        public dhm()
+        {
+            this.init("",80,5000 );
+        }
+
+        private void init(string proxyUrl , int port , int timeout)
         {
             if (proxyUrl == null || proxyUrl == "")
             {
@@ -27,7 +40,7 @@ namespace geopunt4Arcgis.dataHandler
             baseUri = "http://dhm.agiv.be/api/elevation/v1/";
         }
 
-        public List<List<double>> getDataAlongLine( datacontract.geojsonLine profileLine, int nrSamples = 30, CRS srs = CRS.WGS84)
+        public List<List<double>> getDataAlongLine( datacontract.geojsonLine profileLine, int nrSamples , CRS srs)
         {
             client.Headers[HttpRequestHeader.ContentType] = "application/json";
 
@@ -44,6 +57,12 @@ namespace geopunt4Arcgis.dataHandler
 
             return response;
         }
-
+        public List<List<double>> getDataAlongLine(datacontract.geojsonLine profileLine , int nrSamples){
+            return this.getDataAlongLine(profileLine, nrSamples, CRS.WGS84);    
+        }
+        public List<List<double>> getDataAlongLine(datacontract.geojsonLine profileLine)
+        {
+            return this.getDataAlongLine(profileLine, 30, CRS.WGS84);
+        }
     }
 }

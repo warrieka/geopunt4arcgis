@@ -52,7 +52,7 @@ namespace geopunt4Arcgis
 
         public void initGui()
         {
-            clg = new dataHandler.catalog(timeout: gpExtension.timeout);
+            clg = new dataHandler.catalog(gpExtension.timeout);
             keyWords = new AutoCompleteStringCollection();
             keyWords.AddRange(  clg.getKeyWords().ToArray() );
             keywordTxt.AutoCompleteSource = AutoCompleteSource.CustomSource;

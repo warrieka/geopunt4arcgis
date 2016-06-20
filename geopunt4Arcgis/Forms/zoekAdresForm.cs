@@ -46,8 +46,8 @@ namespace geopunt4Arcgis
             adresFC = gpExtension.adresLayer;
 
             //dataHandlers
-            adresSuggestion = new dataHandler.adresSuggestion(sugCallback, timeout: gpExtension.timeout);
-            adresLocation = new dataHandler.adresLocation(timeout: gpExtension.timeout);
+            adresSuggestion = new dataHandler.adresSuggestion(sugCallback, gpExtension.timeout);
+            adresLocation = new dataHandler.adresLocation(gpExtension.timeout);
 
             //init UI
             InitializeComponent();
@@ -57,16 +57,8 @@ namespace geopunt4Arcgis
         private void zoomBtn_Click(object sender, EventArgs e)
         {
             if (suggestionList.Items.Count == 0) { return; }
-            string searchString;
 
-            if (suggestionList.SelectedIndex == -1)
-            {
-                searchString = zoekText.Text + ", " + gemeenteBox.Text;
-            }
-            else 
-            {
-                searchString = suggestionList.SelectedItem.ToString();
-            }
+            string searchString = getSearchstring();
             zoomToQuery(searchString, 1, 0.5);
         }
 
@@ -81,7 +73,6 @@ namespace geopunt4Arcgis
 
         private void gemeenteBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //zoekText.Text = "";
             updateSuggestions();
         }
 
@@ -93,17 +84,8 @@ namespace geopunt4Arcgis
         private void makeMarkerBtn_Click(object sender, EventArgs e)
         {
             if (suggestionList.Items.Count == 0) { return; }
-            string searchString;
 
-            if (suggestionList.SelectedIndex == -1)
-            {
-                searchString = zoekText.Text + ", " + gemeenteBox.Text;
-            }
-            else
-            {
-                searchString = suggestionList.SelectedItem.ToString();
-            }
-
+            string searchString = getSearchstring();
             addMarkerAtAdres(searchString);
         }
 
@@ -115,7 +97,9 @@ namespace geopunt4Arcgis
         private void saveBtn_Click(object sender, EventArgs e)
         {
             if (suggestionList.Items.Count == 0) { return; }
-            saveAdres();
+
+            string searchString = getSearchstring();
+            saveAdres(searchString);
         }
 
         private void helpLbl_Click(object sender, EventArgs e)
@@ -254,12 +238,11 @@ namespace geopunt4Arcgis
 
             if (loc != null )
             {
-                fromXY = new ESRI.ArcGIS.Geometry.Point()
-                {
-                    X = loc.Location.Lon_WGS84,
-                    Y = loc.Location.Lat_WGS84,
-                    SpatialReference = wgs
-                };
+                fromXY = new ESRI.ArcGIS.Geometry.Point();
+                fromXY.X = loc.Location.Lon_WGS84;
+                fromXY.Y = loc.Location.Lat_WGS84;
+                fromXY.SpatialReference = wgs;
+
                 toXY = geopuntHelper.Transform(fromXY as IGeometry, map.SpatialReference) as IPoint;
 
                 innerClr = new RgbColor() { Red = 255, Blue = 0, Green = 255 };
@@ -320,21 +303,11 @@ namespace geopunt4Arcgis
             feature.Store();
         }
 
-        private void saveAdres()
+        private void saveAdres(string adres)
         {
-            string searchString;
             IPoint fromXY; IPoint toXY;
-            //get adres string
-            if (suggestionList.SelectedIndex == -1)
-            {
-                searchString = zoekText.Text + ", " + gemeenteBox.Text;
-            }
-            else
-            {
-                searchString = suggestionList.SelectedItem.ToString();
-            }
             //get the adres XY, return if no result
-            datacontract.locationResult loc = getAdres(searchString);
+            datacontract.locationResult loc = getAdres(adres);
             if (loc == null) return; 
             //if no adres feature class yet, create it.
             if (adresFC == null)
@@ -354,6 +327,30 @@ namespace geopunt4Arcgis
             view.Refresh();
         }
 
+        private string getSearchstring()
+        {
+            string searchString;
+            if (suggestionList.SelectedIndex == -1)
+            {
+                searchString = suggestionList.Items[0].ToString();
+            }
+            else
+            {
+                searchString = suggestionList.SelectedItem.ToString();
+            }
+            if (searchString.EndsWith(")") && searchString.Split(',').Length >= 1)
+            {
+                string pc_gemeente = searchString.Split(',')[1].Substring(0,4).Trim();
+                int pc;
+                bool haspc = int.TryParse(pc_gemeente, out pc);
+                if (haspc)
+                {
+                    searchString = searchString.Substring(0, searchString.Length - 6);
+                }
+            }
+            
+            return searchString;
+        }
     #endregion
 
     }

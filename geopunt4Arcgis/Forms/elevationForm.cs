@@ -58,7 +58,7 @@ namespace geopunt4Arcgis
             gpExtension = geopunt4arcgisExtension.getGeopuntExtension();
             lineFC = gpExtension.profileLineLayer;
             pointsFC = gpExtension.profilePointsLayer;
-            dhm = new dataHandler.dhm(timeout: gpExtension.timeout);
+            dhm = new dataHandler.dhm(gpExtension.timeout);
 
             ESRI.ArcGIS.Framework.ICommandBars commandBars = ArcMap.Application.Document.CommandBars;
             UID toolID = new UIDClass();

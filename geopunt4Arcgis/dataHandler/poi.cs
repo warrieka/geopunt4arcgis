@@ -15,7 +15,20 @@ namespace geopunt4Arcgis.dataHandler
         NameValueCollection qryValues;
         string baseUrl = "http://poi.api.geopunt.be/v1/core";
 
-        public poi(string proxyUrl = "", int port = 80, int timeout = 5000)
+        public poi(string proxyUrl, int port, int timeout)
+        {
+            this.init(proxyUrl, port, timeout);
+        }
+        public poi(int timeout)
+        {
+            this.init("", 80, timeout);
+        }
+        public poi()
+        {
+            this.init("", 80, 5000);
+        }
+
+        private void init(string proxyUrl, int port, int timeout)
         {
             if (proxyUrl == null || proxyUrl == "")
             {
@@ -43,7 +56,7 @@ namespace geopunt4Arcgis.dataHandler
             return poiResponse;
         }
 
-        public datacontract.poiCategories listCategories(string themeid = null) 
+        public datacontract.poiCategories listCategories(string themeid ) 
         {
             Uri poiUri;
             if (themeid == null || themeid == "" ) poiUri = new Uri(baseUrl + "/categories");
@@ -55,8 +68,12 @@ namespace geopunt4Arcgis.dataHandler
             client.QueryString.Clear();
             return poiResponse;
         }
+        public datacontract.poiCategories listCategories( ) 
+        {
+            return listCategories(null);
+        }
 
-        public datacontract.poiCategories listPOItypes(string themeid = null, string categoryid = null)
+        public datacontract.poiCategories listPOItypes(string themeid, string categoryid)
         {
             Uri poiUri;
             if ((themeid != "" && themeid != null) && (categoryid != "" && categoryid != null))
@@ -79,9 +96,17 @@ namespace geopunt4Arcgis.dataHandler
             client.QueryString.Clear();
             return poiResponse;
         }
+        public datacontract.poiCategories listPOItypes(string themeid)
+        {
+            return listPOItypes(themeid, null);
+        }
+        public datacontract.poiCategories listPOItypes()
+        {
+            return listPOItypes(null, null);
+        }
 
-        public datacontract.poiMinResponse getMinmodel(string q = null, bool Clustering=false, string theme = null, string category = null, 
-            string POItype = null, CRS srs = CRS.WGS84, int? id = null, string niscode = null, boundingBox bbox = null)
+        public datacontract.poiMinResponse getMinmodel(string q, bool Clustering, string theme, string category, 
+            string POItype, CRS srs, int? id, string niscode, boundingBox bbox)
         {
             setQueryValues(q, 1024, Clustering, false, theme, category, POItype, srs, id, niscode, bbox );
             client.QueryString = qryValues;
@@ -95,8 +120,19 @@ namespace geopunt4Arcgis.dataHandler
             return poiResponse;
         }
 
-        public datacontract.poiMaxResponse getMaxmodel(string q = null, int c = 30, bool Clustering = false, string theme = null, string category = null,
-            string POItype = null, CRS srs = CRS.WGS84, int? id = null, string niscode = null, boundingBox bbox = null)
+        public datacontract.poiMinResponse getMinmodel(string q, bool Clustering, string theme, string category, 
+            string POItype, CRS srs, int? id, string niscode)
+        {
+            return getMinmodel(q, Clustering, theme, category, POItype, srs, id, niscode, null);
+        }
+        public datacontract.poiMinResponse getMinmodel(string q, bool Clustering, string theme, string category, 
+            string POItype, CRS srs, int? id)
+        {
+            return getMinmodel(q, Clustering, theme, category, POItype, srs, id, "", null);
+        }
+
+        public datacontract.poiMaxResponse getMaxmodel(string q, int c, bool Clustering, string theme, string category,
+            string POItype, CRS srs, int? id, string niscode, boundingBox bbox)
         {
             setQueryValues(q, c, Clustering, true, theme, category, POItype, srs, id, niscode, bbox);
             client.QueryString = qryValues;
@@ -109,10 +145,20 @@ namespace geopunt4Arcgis.dataHandler
 
             return poiResponse;
         }
+        public datacontract.poiMaxResponse getMaxmodel(string q, int c, bool Clustering, string theme, string category,
+            string POItype, CRS srs, int? id, string niscode )
+        {
+            return getMaxmodel(q, c, Clustering, theme, category, POItype, srs, id, niscode, null );
+        }
+        public datacontract.poiMaxResponse getMaxmodel(string q, int c, bool Clustering, string theme, string category,
+            string POItype, CRS srs, int? id )
+        {
+            return getMaxmodel(q, c, Clustering, theme, category, POItype, srs, id, "", null );
+        }
 
-        private void setQueryValues(string q = "", int c = 30, bool Clustering = false, bool maxModel = false,
-             string theme = null, string category = null, string POItype = null, CRS srs = CRS.WGS84, 
-             int? id = null, string niscode = null, boundingBox bbox = null)
+        private void setQueryValues(string q , int c , bool Clustering , bool maxModel,
+             string theme , string category, string POItype, CRS srs, 
+             int? id , string niscode, boundingBox bbox )
         {
             qryValues.Clear();
 

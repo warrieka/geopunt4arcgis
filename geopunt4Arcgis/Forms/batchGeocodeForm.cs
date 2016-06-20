@@ -54,8 +54,8 @@ namespace geopunt4Arcgis
 
             gpExtension = geopunt4arcgisExtension.getGeopuntExtension();
 
-            loc = new dataHandler.adresLocation( timeout: gpExtension.timeout);
-            sug = new dataHandler.adresSuggestion( timeout: gpExtension.timeout);
+            loc = new dataHandler.adresLocation(gpExtension.timeout);
+            sug = new dataHandler.adresSuggestion(gpExtension.timeout);
 
             graphics = new List<IElement>();
 
@@ -411,7 +411,8 @@ namespace geopunt4Arcgis
 
                     IPoint pt = new PointClass() { X = x, Y = y, SpatialReference = lam72 };
                     IPoint prjPt = geopuntHelper.Transform(pt, map.SpatialReference) as IPoint;
-                    points.AddPoint(prjPt);
+                    object Missing = Type.Missing;
+                    points.AddPoint(prjPt, ref Missing, ref Missing);
 
                     IRgbColor rgb = new RgbColorClass() { Red = 0, Blue = 255, Green = 255 };
                     IRgbColor black = new RgbColorClass() { Red = 0, Green = 0, Blue = 0 };
@@ -619,7 +620,7 @@ namespace geopunt4Arcgis
                     DataGridViewCell validcell = row.Cells["validAdres"];
                     if (validcell.Value == null || validcell.Value.ToString() == "") continue;
 
-                    string validAdres = validcell.Value.ToString();
+                    string validAdres = cleanSearchstring( validcell.Value.ToString() );
                     string[] xy = validAdres.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries );
 
                     double x; double y;
@@ -705,6 +706,21 @@ namespace geopunt4Arcgis
             validateAllBtn.Enabled = active;
 
             add2mapBtn.Enabled = active;
+        }
+
+        private string cleanSearchstring(string searchString)
+        {
+            if (searchString.EndsWith(")") && searchString.Split(',').Length >= 1)
+            {
+                string pc_gemeente = searchString.Split(',')[1].Substring(0, 4).Trim();
+                int pc;
+                bool haspc = int.TryParse(pc_gemeente, out pc);
+                if (haspc)
+                {
+                    searchString = searchString.Substring(0, searchString.Length - 6);
+                }
+            }
+            return searchString;
         }
         #endregion
 

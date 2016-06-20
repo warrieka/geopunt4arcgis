@@ -43,7 +43,7 @@ namespace geopunt4Arcgis
 
             gpExtension = geopunt4arcgisExtension.getGeopuntExtension();
 
-            capakey = new dataHandler.capakey(timeout: gpExtension.timeout);
+            capakey = new dataHandler.capakey(gpExtension.timeout);
 
             InitializeComponent();
 
@@ -490,7 +490,8 @@ namespace geopunt4Arcgis
                     IElement muniGrapic = geopuntHelper.AddGraphicToMap(map, prjGeom, inClr, outLine, 2, true);
                     graphics.Add(muniGrapic);
 
-                    multiPoly.AddGeometry(prjGeom);
+                    object Missing = Type.Missing;
+                    multiPoly.AddGeometry(prjGeom, ref Missing, ref Missing);
                 }
                 view.Extent = ((IGeometryBag)multiPoly).Envelope;
                 view.Refresh();

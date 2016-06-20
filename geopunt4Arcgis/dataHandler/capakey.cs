@@ -15,7 +15,20 @@ namespace geopunt4Arcgis.dataHandler
         NameValueCollection qryValues;
         string baseUri;
 
-        public capakey(string proxyUrl = "", int port = 80, int timeout = 5000)
+        public capakey(string proxyUrl, int port, int timeout)
+        {
+            this.init( proxyUrl, port, timeout);
+        }
+        public capakey(int timeout)
+        {
+            this.init("", 80, timeout);
+        }
+        public capakey()
+        {
+            this.init("", 80, 5000);
+        }
+
+        private void init(string proxyUrl, int port, int timeout)
         {
             if (proxyUrl == null || proxyUrl == "")
             {

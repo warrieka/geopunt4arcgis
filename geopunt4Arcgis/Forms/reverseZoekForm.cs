@@ -43,7 +43,7 @@ namespace geopunt4Arcgis
 
             gpExtension = geopunt4arcgisExtension.getGeopuntExtension();
             reverseFC = gpExtension.reverseLayer;
-            adresLocation = new dataHandler.adresLocation(adresCallback, timeout: gpExtension.timeout);
+            adresLocation = new dataHandler.adresLocation(adresCallback, gpExtension.timeout);
 
             InitializeComponent();
         }
@@ -217,7 +217,7 @@ namespace geopunt4Arcgis
      #endregion
 
      #region "public functions"
-        public void setText(string adrestext, double diffValue = 0, string statustext = "")
+        public void setText(string adrestext, double diffValue, string statustext)
         {
             adresBox.Text = adrestext;
             diffBox.Text = string.Format("{0:0.##} meter", diffValue);
@@ -239,7 +239,7 @@ namespace geopunt4Arcgis
             IRgbColor black = new RgbColorClass(){Red= 0, Blue=0, Green=0 };
             clickGrp = geopuntHelper.AddGraphicToMap(map, xyClick, rgb, black, 8, true);
 
-            adresLocation.getXYadresLocationAsync(xClick, yClick);
+            adresLocation.getXYadresLocationAsync(xClick, yClick, 1);
 
             adresBox.Text = "< De informatie wordt opgehaald, even geduld. >";
             diffBox.Text = "";

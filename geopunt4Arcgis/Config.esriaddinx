@@ -3,11 +3,11 @@
   <AddInID>{9473f72a-33ce-402e-85c7-170c29b08419}</AddInID>
   <Description>Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan, 
 die met deze add-in geïntegreed worden in Arcgis.</Description>
-  <Version>1.8.2</Version>
+  <Version>1.8.3</Version>
   <Image>Images\geopunt4Arcgis.png</Image>
   <Author>Kay Warrie</Author>
   <Company>AGIV</Company>
-  <Date>17/05/2015</Date>
+  <Date>01/02/2016</Date>
   <Targets>
     <Target name="Desktop" version="10.0" />
     <!--<Target name="Desktop" version="10.2" />-->
@@ -40,7 +40,9 @@ die met deze add-in geïntegreed worden in Arcgis.</Description>
           <Help source="http://www.geopunt.be/voor-experts/geopunt-plug-ins/arcgis%20plugin/functionaliteiten/gipod" />
         </Button>
         <Button id="KGIS_geopunt4Arcgis_geopuntPoiCmd" class="geopuntPoiCmd" 
-                message="Met deze tool kan je naar interessante plaatsen (POI: Points of Interest) in de Geopunt POI-dienst zoeken." caption="Zoek een interssante plaats" tip="Zoek een interssante plaats" category="geopunt" image="Images\geopuntPoiCmd.png">
+                message="Met deze tool kan je naar interessante plaatsen (POI: Points of Interest) in de Geopunt POI-dienst zoeken." 
+                caption="Zoek een interssante plaats" tip="Zoek een interssante plaats" category="geopunt" 
+                image="Images\geopuntPoiCmd.png">
           <Help source="http://www.geopunt.be/voor-experts/geopunt-plug-ins/arcgis%20plugin/functionaliteiten/poi" />
         </Button>
         <Button id="KGIS_geopunt4Arcgis_capakeyCmd" class="geopuntCapakeyCmd" 
@@ -74,7 +76,9 @@ die met deze add-in geïntegreed worden in Arcgis.</Description>
               caption="Hoogteprofiel" tip="Hoogteprofiel" category="geopunt" image="Images\geopuntElevationTool.png" cursor="Images\geopuntElevationTool.cur" />
       </Commands>
       <Extensions>
-        <Extension id="KGIS_geopunt4Arcgis_geopunt4arcgisExtension" class="geopunt4arcgisExtension" productName="Geopunt voor arcgis" showInExtensionDialog="true" autoLoad="true">
+        <Extension id="KGIS_geopunt4Arcgis_geopunt4arcgisExtension" 
+                   class="geopunt4arcgisExtension" productName="Geopunt voor arcgis" 
+                   showInExtensionDialog="true" autoLoad="true">
           <Description>Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan, 
 die met deze add-in toegevoegd worden in Arcgis.</Description>
         </Extension>

@@ -39,7 +39,7 @@ namespace geopunt4Arcgis
             lam72 = geopuntHelper.lam72;
 
             gpExtension = geopunt4arcgisExtension.getGeopuntExtension();
-            gipod = new dataHandler.gipod(timeout: gpExtension.timeout);
+            gipod = new dataHandler.gipod(gpExtension.timeout);
 
             InitializeComponent();
             // set the rest of the GUI
@@ -48,7 +48,7 @@ namespace geopunt4Arcgis
 
         private void initGUI() 
         {
-            dataHandler.capakey capakey = new dataHandler.capakey(timeout: gpExtension.timeout);
+            dataHandler.capakey capakey = new dataHandler.capakey(gpExtension.timeout);
             municipality = capakey.getMunicipalities();
             var qry = from datacontract.municipality t in municipality.municipalities select t.municipalityName;
 
@@ -269,12 +269,12 @@ namespace geopunt4Arcgis
             {
                 if (param.gipodType == dataHandler.gipodtype.manifestation)
                 {
-                    response = gipod.allManifestations(startdate, enddate, city, province, owner, eventtype, crs);
+                    response = gipod.allManifestations(startdate, enddate, city, province, owner, eventtype, crs, null);
                     return response;
                 }
                 else if (param.gipodType == dataHandler.gipodtype.workassignment)
                 {
-                    response = gipod.allWorkassignments(startdate, enddate, city, province, owner, crs);
+                    response = gipod.allWorkassignments(startdate, enddate, city, province, owner, crs, null);
                     return response;
                 }
                 else return null;
@@ -296,7 +296,7 @@ namespace geopunt4Arcgis
         }
 
         /// <summary>Create the the fields for teh gipod Shapefile</summary>
-        private List<IField> gipodIFields(dataHandler.gipodtype gtype, bool shp = true)
+        private List<IField> gipodIFields(dataHandler.gipodtype gtype, bool shp)
         {
             List<IField> fields = new List<IField>();
 
@@ -330,6 +330,8 @@ namespace geopunt4Arcgis
             }
             return fields;
         }
+
+
 
         /// <summary>Get the gipod parameters </summary>
         private dataHandler.gipodParam getGipodParam()

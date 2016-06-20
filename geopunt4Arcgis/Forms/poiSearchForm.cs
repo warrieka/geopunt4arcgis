@@ -47,7 +47,7 @@ namespace geopunt4Arcgis
 
             gpExtension = geopunt4arcgisExtension.getGeopuntExtension();
 
-            poiDH = new dataHandler.poi(timeout: gpExtension.timeout);
+            poiDH = new dataHandler.poi( gpExtension.timeout);
 
             graphics = new List<IElement>();
 
@@ -60,7 +60,7 @@ namespace geopunt4Arcgis
             rows = new SortableBindingList<poiDataRow>();
             resultGrid.DataSource = rows;
 
-            dataHandler.capakey capa = new dataHandler.capakey(timeout: gpExtension.timeout);
+            dataHandler.capakey capa = new dataHandler.capakey( gpExtension.timeout);
 
             municipalities = capa.getMunicipalities();
             List<string> cities = (from datacontract.municipality t in municipalities.municipalities 
@@ -102,10 +102,8 @@ namespace geopunt4Arcgis
 
             try
             {
-                //get the data
-                poiData = poiDH.getMaxmodel(Clustering: cluster,
-                    q: keyWord, theme: themeCode, category: catCode, POItype: poiTypeCode, niscode: nis,
-                    c: count, bbox: extent, srs: dataHandler.CRS.WGS84);
+                poiData = poiDH.getMaxmodel(keyWord, count, cluster, themeCode, catCode, poiTypeCode, 
+                    dataHandler.CRS.WGS84, null, nis, extent);
 
                 List<datacontract.poiMaxModel> pois = poiData.pois;
 
@@ -306,7 +304,8 @@ namespace geopunt4Arcgis
                     IPoint wgsPt = geopuntHelper.geojson2esriPoint(jsonPt, 4326);
                     IPoint prjPt = (IPoint)geopuntHelper.Transform((IGeometry)wgsPt, map.SpatialReference);
 
-                    points.AddPoint(prjPt, Type.Missing, Type.Missing);
+                    object Missing = Type.Missing;
+                    points.AddPoint(prjPt, ref Missing, ref Missing);
                 }
                 if (points.PointCount == 0)
                 {
@@ -448,8 +447,8 @@ namespace geopunt4Arcgis
             try
             {
                 //get the data
-                datacontract.poiMinResponse poiMinData = poiDH.getMinmodel( q: keyWord, theme: themeCode, category: catCode,
-                        Clustering: clustering, POItype: poiTypeCode, niscode: nis, bbox: extent, srs: dataHandler.CRS.WGS84);
+                datacontract.poiMinResponse poiMinData = poiDH.getMinmodel( keyWord, clustering, themeCode, catCode,
+                         poiTypeCode, dataHandler.CRS.WGS84, null, nis, extent);
 
                 List<datacontract.poiMinModel> pois = poiMinData.pois;
                 List<datacontract.cluster> clusters = poiMinData.clusters;

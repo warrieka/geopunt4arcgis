@@ -19,7 +19,20 @@ namespace geopunt4Arcgis
         string versionJSurl = "http://www.geopunt.be/~/media/geopunt/voor-experts/plugins/bestanden/arcgis%20plugin/geopunt4arcgis.json";
         string dlAddinUri = "http://www.geopunt.be/~/media/geopunt/voor-experts/plugins/bestanden/arcgis%20plugin%20bestand/geopunt4arcgis.esriAddIn";
 
-        public versionChecker(string proxyUrl = "", int port = 80, int timeout = 5000) 
+        public versionChecker(string proxyUrl, int port, int timeout) 
+        {
+            this.init(proxyUrl, port, timeout);
+        }
+        public versionChecker(int timeout)
+        {
+            this.init("", 80, timeout);
+        }
+        public versionChecker() 
+        {
+            this.init("", 80, 5000);
+        }
+
+        private void init(string proxyUrl, int port, int timeout)
         {
             if (proxyUrl == null || proxyUrl == "")
             {
@@ -37,7 +50,7 @@ namespace geopunt4Arcgis
             gpClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(client_DownloadStringCompleted);
 
             prs = new System.Diagnostics.Process();
-            prs.StartInfo.UseShellExecute = false;           
+            prs.StartInfo.UseShellExecute = false;  
         }
 
         public void checkVersion()

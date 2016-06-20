@@ -17,20 +17,30 @@ namespace geopunt4Arcgis
 
         private string intlr ;
 
-        public layerSelectionForm(List<ESRI.ArcGIS.GISClient.IWMSLayerDescription> layers, string initialLayer = null)
+        public layerSelectionForm(List<ESRI.ArcGIS.GISClient.IWMSLayerDescription> layers, string initialLayer)
+        {
+            init(layers, initialLayer);
+            
+        }
+        public layerSelectionForm(List<ESRI.ArcGIS.GISClient.IWMSLayerDescription> layers) 
+        {
+            init(layers, null);
+        }
+
+        private void init(List<ESRI.ArcGIS.GISClient.IWMSLayerDescription> layers, string initialLayer)
         {
             intlr = initialLayer;
 
             InitializeComponent();
             layerDescripts = layers;
-            layerList = new BindingList<string>( layers.Select( c => c.Title ).ToList() );
+            layerList = new BindingList<string>(layers.Select(c => c.Title).ToList());
             layersListCbx.DataSource = layerList;
 
-            if (initialLayer != null && layerDescripts.Count > 0) 
+            if (initialLayer != null && layerDescripts.Count > 0)
             {
                 List<string> lyrTitles = (from g in layerDescripts
-                                 where g.Title == initialLayer || g.Name == initialLayer 
-                                 select g.Title).ToList();
+                                          where g.Title == initialLayer || g.Name == initialLayer
+                                          select g.Title).ToList();
 
                 if (lyrTitles.Count > 0) layersListCbx.Text = lyrTitles[0];
             }

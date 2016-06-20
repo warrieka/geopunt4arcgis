@@ -10,14 +10,19 @@ namespace geopunt4Arcgis
     {
         public int timeout { get; set; }
 
-        public gpWebClient()
-        {
-        }
-
-        public gpWebClient(Uri uri, int millisecTimeOut = 5000) 
+        public gpWebClient(Uri uri, int millisecTimeOut) 
         {
             var objWebClient = GetWebRequest(uri);
             timeout = millisecTimeOut;
+        }
+        public gpWebClient(Uri uri)
+        {
+            var objWebClient = GetWebRequest(uri);
+            timeout = 5000;
+        }
+        public gpWebClient()
+        {
+            timeout = 5000;
         }
 
         protected override WebRequest GetWebRequest(Uri uri)

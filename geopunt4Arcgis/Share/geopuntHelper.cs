@@ -242,7 +242,8 @@ namespace geopunt4Arcgis
         ///<param name="outlineRgbColor">An IRgbColor interface. For marker anfd polygons the outline it will be this color, for lines this is ignored</param>
         ///<param name="size">size in pixel as integer linewidth of outLine or of intire marker if point</param>
         ///<param name="userLock">locked from editing by user?</param>
-        public static IElement AddGraphicToMap(IMap map, IGeometry geometry, IRgbColor rgbColor, IRgbColor outlineRgbColor, int size = 5, bool userLock = false)
+        public static IElement AddGraphicToMap(IMap map, IGeometry geometry, IRgbColor rgbColor, 
+            IRgbColor outlineRgbColor, int size, bool userLock )
         {
             IGraphicsContainer graphicsContainer = (IGraphicsContainer)map; // Explicit Cast
             IElement element = null;
@@ -298,6 +299,24 @@ namespace geopunt4Arcgis
             }
             return element;
         }
+        ///<summary>Draw a specified graphic on the map using the supplied colors.</summary>
+        ///<param name="map">An IMap interface.</param>
+        ///<param name="geometry">An IPoint interface. It can be of the geometry type esriGeometryPoint</param>
+        ///<param name="rgbColor">An IRgbColor interface. The color to draw the geometry.</param>
+        ///<param name="outlineRgbColor">An IRgbColor interface. For marker anfd polygons the outline it will be this color, for lines this is ignored</param>
+        ///<param name="size">size in pixel as integer linewidth of outLine or of intire marker if point</param>
+        public static IElement AddGraphicToMap(IMap map, IGeometry geometry, IRgbColor rgbColor, 
+            IRgbColor outlineRgbColor,  int size){
+            return  AddGraphicToMap(map, geometry, rgbColor, outlineRgbColor, size, false);
+        }
+        ///<summary>Draw a specified graphic on the map using the supplied colors.</summary>
+        ///<param name="map">An IMap interface.</param>
+        ///<param name="geometry">An IPoint interface. It can be of the geometry type esriGeometryPoint</param>
+        ///<param name="rgbColor">An IRgbColor interface. The color to draw the geometry.</param>
+        ///<param name="outlineRgbColor">An IRgbColor interface. For marker anfd polygons the outline it will be this color, for lines this is ignored</param>
+        public static IElement AddGraphicToMap(IMap map, IGeometry geometry, IRgbColor rgbColor, IRgbColor outlineRgbColor){
+            return  AddGraphicToMap(map, geometry, rgbColor, outlineRgbColor, 5, false);
+        }
         #endregion
 
         #region "Add text to map"
@@ -322,7 +341,7 @@ namespace geopunt4Arcgis
         /// <param name="fieldType">the type of the record: string, int, double or date</param>
         /// <param name="len">the of a string field, ignored for other types</param>
         /// <returns>the fieldClass</returns>
-        public static IField createField( string name, esriFieldType fieldType = esriFieldType.esriFieldTypeString , int len = 64 ) 
+        public static IField createField( string name, esriFieldType fieldType , int len) 
         {
             IField2 field = new FieldClass();
             IFieldEdit2 fieldEdit = (IFieldEdit2)field;
@@ -332,7 +351,12 @@ namespace geopunt4Arcgis
             fieldEdit.IsNullable_2 = true;
             return (IField) field;
         }
-
+        public static IField createField( string name, esriFieldType fieldType){
+           return createField(name, fieldType, 64);
+        }
+        public static IField createField( string name){
+           return createField(name, esriFieldType.esriFieldTypeString, 64);
+        }
         #endregion
 
         #region "Create ShapeFile / featureclass"
@@ -344,7 +368,7 @@ namespace geopunt4Arcgis
         /// <param name="deleteIfExists">Overwrite existing FeatureClass</param>
         /// <returns>the shapefile loaded in a IFeatureClass</returns>
         public static IFeatureClass createShapeFile(string shapeFilePath, List<IField> field2add , 
-                                  ISpatialReference srs, esriGeometryType geomType, bool deleteIfExists = true)
+                                  ISpatialReference srs, esriGeometryType geomType, bool deleteIfExists )
         {
             FileInfo shapeInfo = new FileInfo(shapeFilePath);
 
@@ -396,6 +420,17 @@ namespace geopunt4Arcgis
 
             return featureClass;
         }
+        /// <summary>Create a ESRI shapefile </summary>
+        /// <param name="shapeFilePath">the path to the shapefile</param>
+        /// <param name="field2add">List of Ifields</param>
+        /// <param name="srs">the srs of the shapefile</param>
+        /// <param name="geomType">the type geometry: point, polyline, polygon, ...</param>
+        /// <returns>the shapefile loaded in a IFeatureClass</returns>
+        public static IFeatureClass createShapeFile(string shapeFilePath, List<IField> field2add , 
+                                  ISpatialReference srs, esriGeometryType geomType)
+        {
+            return createShapeFile(shapeFilePath, field2add, srs, geomType, false);
+        }
         /// <summary>Create a feature class in a existing FGDB </summary>
         /// <param name="FGDBPath">Path to the existing FGDB</param>
         /// <param name="FCname">Name of the new FeatureClass</param>
@@ -405,7 +440,7 @@ namespace geopunt4Arcgis
         /// <param name="deleteIfExists">Overwrite existing FeatureClass</param>
         /// <returns>the Feuture Class loaded in a IFeatureClass</returns>
         public static IFeatureClass createFeatureClass(string FGDBPath, string FCname, List<IField> field2add,
-                                              ISpatialReference srs, esriGeometryType geomType, bool deleteIfExists = true)
+                                              ISpatialReference srs, esriGeometryType geomType, bool deleteIfExists)
         {
             DirectoryInfo fgbInfo = new DirectoryInfo(FGDBPath);
 
@@ -474,7 +509,19 @@ namespace geopunt4Arcgis
                                        esriFeatureType.esriFTSimple, shapeField.Name, "");
             return featureClass;
         }
-
+        /// <summary>Create a feature class in a existing FGDB </summary>
+        /// <param name="FGDBPath">Path to the existing FGDB</param>
+        /// <param name="FCname">Name of the new FeatureClass</param>
+        /// <param name="field2add">List of Ifields</param>
+        /// <param name="srs">the srs of the shapefile</param>
+        /// <param name="geomType">the type geometry: point, polyline, polygon, ...</param>
+        /// <returns>the Feuture Class loaded in a IFeatureClass</returns>
+        public static IFeatureClass createFeatureClass(string FGDBPath, string FCname, List<IField> field2add , 
+                                  ISpatialReference srs, esriGeometryType geomType)
+        {
+            return createFeatureClass(FGDBPath, FCname, field2add, srs, geomType, false);
+        }
+        
         /// <summary>return a validated set of fields</summary>
         /// <param name="workspace">the input workspace</param>
         /// <param name="fields">the input fields</param>
@@ -512,7 +559,7 @@ namespace geopunt4Arcgis
         /// <param name="inFeatureClass">the feature class to add</param>
         /// <param name="zoomTo">zoom to loaded feature class</param>
         /// <returns>the created layer</returns>
-        public static IFeatureLayer addFeatureClassToMap(IActiveView view, IFeatureClass inFeatureClass, bool zoomTo = false)
+        public static IFeatureLayer addFeatureClassToMap(IActiveView view, IFeatureClass inFeatureClass, bool zoomTo)
         {
             IFeatureLayer featureLayer = new FeatureLayerClass();
             featureLayer.FeatureClass = inFeatureClass;
@@ -524,7 +571,10 @@ namespace geopunt4Arcgis
                 
             return featureLayer;
         }
-
+        public static IFeatureLayer addFeatureClassToMap(IActiveView view, IFeatureClass inFeatureClass)
+        {    
+            return addFeatureClassToMap(view, inFeatureClass, false);
+        }
         #endregion
 
         #region "Internet available?"
@@ -554,7 +604,7 @@ namespace geopunt4Arcgis
         /// <param name="url">the url</param>
         /// <param name="isWMS">indicate if the url is wms</param>
         /// <returns>true if exists</returns>
-        public static bool websiteExists( string url, bool isWMS = false ){
+        public static bool websiteExists( string url, bool isWMS ){
             HttpWebResponse response = null;
 
             if (isWMS)
@@ -583,6 +633,12 @@ namespace geopunt4Arcgis
                     response.Close();
                 }
             }
+        }
+        /// <summary>Check if a url refers to a existing site </summary>
+        /// <param name="url">the url</param>
+        /// <returns>true if exists</returns>
+        public static bool websiteExists( string url ){
+            return websiteExists(url, false);
         }
         #endregion
 
@@ -745,7 +801,7 @@ namespace geopunt4Arcgis
         /// <param name="JSpoint">The deserialised GeoJson Object</param>
         /// <param name="epsg">The EPSG-code of the spatial reference, -1 is unknown</param>
         /// <returns>A Arcgis Point goemetry</returns>
-        public static IPoint geojson2esriPoint(datacontract.geojsonPoint JSpoint, int epsg = -1)
+        public static IPoint geojson2esriPoint(datacontract.geojsonPoint JSpoint, int epsg)
         {
             Type factoryType = Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment");
             System.Object obj = Activator.CreateInstance(factoryType);
@@ -760,12 +816,17 @@ namespace geopunt4Arcgis
              }
              return esriPnt;
         }
-
-        /// <summary>Convert a GeoJSON Line geometry to Arcgis Geometry </summary>
+        /// <summary>Convert a GoeJSON point geometry to Arcgis Geometry </summary>
         /// <param name="JSpoint">The deserialised GeoJson Object</param>
+        /// <returns>A Arcgis Point goemetry</returns>
+        public static IPoint geojson2esriPoint(datacontract.geojsonPoint JSpoint){
+            return geojson2esriPoint(JSpoint, -1);
+        }
+        /// <summary>Convert a GeoJSON Line geometry to Arcgis Geometry </summary>
+        /// <param name="JSline">The deserialised GeoJson Object</param>
         /// <param name="epsg">The EPSG-code of the spatial reference, -1 is unknown</param>
         /// <returns>A Arcgis PolyLine goemetry</returns>
-        public static IPolyline geojson2esriLine(datacontract.geojsonLine JSline, int epsg = -1)
+        public static IPolyline geojson2esriLine(datacontract.geojsonLine JSline, int epsg)
         {
             Type factoryType = Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment");
             System.Object obj = Activator.CreateInstance(factoryType);
@@ -782,7 +843,7 @@ namespace geopunt4Arcgis
             }
 
             IPolyline esriLine = new PolylineClass();
-            pGeoBrg.SetWKSPoints(esriLine as IPointCollection4, aWKSPointBuffer);
+            pGeoBrg.SetWKSPoints(esriLine as IPointCollection4, ref aWKSPointBuffer);
 
             if (epsg != -1)
             {
@@ -792,12 +853,17 @@ namespace geopunt4Arcgis
 
             return esriLine;
         }
-
+        /// <summary>Convert a GeoJSON Line geometry to Arcgis Geometry </summary>
+        /// <param name="JSline">The deserialised GeoJson Object</param>
+        /// <returns>A Arcgis PolyLine goemetry</returns>
+        public static IPolyline geojson2esriLine(datacontract.geojsonLine JSline){
+            return geojson2esriLine( JSline, -1 );
+        }
         /// <summary>Convert a GeoJSON Polygon geometry to Arcgis Geometry </summary>
-        /// <param name="JSpoint">The deserialised GeoJson Object</param>
+        /// <param name="JSPolygon">The deserialised GeoJson Object</param>
         /// <param name="epsg">The EPSG-code of the spatial reference, -1 is unknown</param>
         /// <returns>A Arcgis Polygon goemetry</returns>
-        public static IPolygon geojson2esriPolygon(datacontract.geojsonPolygon JSPolygon, int epsg = -1)
+        public static IPolygon geojson2esriPolygon(datacontract.geojsonPolygon JSPolygon, int epsg)
         {
             Type factoryType = Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment");
             System.Object obj = Activator.CreateInstance(factoryType);
@@ -818,8 +884,9 @@ namespace geopunt4Arcgis
                     aWKSPointBuffer[i].X = xy[0];
                     aWKSPointBuffer[i].Y = xy[1];
                 }
-                pGeoBrg.SetWKSPoints(ring , aWKSPointBuffer);
-                esriGeometryCol.AddGeometry(ring as IGeometry, Type.Missing, Type.Missing);
+                pGeoBrg.SetWKSPoints(ring , ref aWKSPointBuffer);
+                object Missing = Type.Missing;
+                esriGeometryCol.AddGeometry(ring as IGeometry, ref Missing, ref Missing);
             }
 
             IPolygon esriPolygon = esriGeometryCol as IPolygon;
@@ -831,7 +898,12 @@ namespace geopunt4Arcgis
             }
             return esriPolygon;
         }
-
+        /// <summary>Convert a GeoJSON Polygon geometry to Arcgis Geometry </summary>
+        /// <param name="JSPolygon">The deserialised GeoJson Object</param>
+        /// <returns>A Arcgis Polygon goemetry</returns>
+        public static IPolygon geojson2esriPolygon(datacontract.geojsonPolygon JSPolygon){
+            return geojson2esriPolygon(JSPolygon, -1);
+        }
         /// <summary>Convert a ESRI geometry to geojson </summary>
         /// <param name="esriPoint">A ESRI point object</param>
         /// <returns>A geojson Object</returns>
@@ -869,7 +941,6 @@ namespace geopunt4Arcgis
 
            return JSpoint;
         }
-
         /// <summary>Convert a ESRI geometry to geojson </summary>
         /// <param name="esriPoint">A ESRI polygon object</param>
         /// <returns>A geojson string</returns>
@@ -878,7 +949,6 @@ namespace geopunt4Arcgis
             datacontract.geojsonPoint gjs = esri2geojsonPoint(esriPoint);
             return JsonConvert.SerializeObject(gjs);
         }
-
         /// <summary>Convert a ESRI geometry to geojson </summary>
         /// <param name="esriPoint">A ESRI polyline object</param>
         /// <returns>A geojson Object</returns>
@@ -923,7 +993,6 @@ namespace geopunt4Arcgis
 
             return JSline;
         }
-
         /// <summary>Convert a ESRI geometry to geojson </summary>
         /// <param name="esriPoint">A ESRI polyline object</param>
         /// <returns>A geojson String</returns>
@@ -932,7 +1001,6 @@ namespace geopunt4Arcgis
             datacontract.geojsonLine gjsline = esri2geojsonLine(esriLine);
             return JsonConvert.SerializeObject(gjsline);
         }
-
         /// <summary>Convert a ESRI geometry to geojson </summary>
         /// <param name="esriPoint">A ESRI polygon object</param>
         /// <returns>A geojson Object</returns>
@@ -981,8 +1049,7 @@ namespace geopunt4Arcgis
             JSpolygon.coordinates = coords;
 
             return JSpolygon;
-        }
-        
+        }     
         /// <summary>Convert a ESRI geometry to geojson </summary>
         /// <param name="esriPoint">A ESRI polygon object</param>
         /// <returns>A geojson string</returns>
@@ -998,9 +1065,8 @@ namespace geopunt4Arcgis
         /// <summary>Add a WMS to the map</summary>
         /// <param name="map">The map to add the wms to</param>
         /// <param name="WMSurl">the url point to the WMS</param>
-        public static void addWMS2map(IMap map, string WMSurl, short transparency = 0) 
+        public static void addWMS2map(IMap map, string WMSurl, short transparency ) 
         {
-
             IWMSGroupLayer wmsLayerGroup = new WMSMapLayerClass();
             IWMSConnectionName WMSconnName = new WMSConnectionNameClass();
             IName WMSname;
@@ -1050,7 +1116,10 @@ namespace geopunt4Arcgis
 
             view.ContentsChanged();
         }
-
+        public static void addWMS2map(IMap map, string WMSurl){
+            addWMS2map(map, WMSurl, 0);
+        }
+        
         public static ILayer getWMSLayerByName(string WMSurl, string layerName)
         {
             IPropertySet propSet = new PropertySetClass();
@@ -1216,8 +1285,7 @@ namespace geopunt4Arcgis
         /// <param name="separator">the character separating the values, can be "COMMA", "PUNTCOMMA", "SPATIE" or "TAB", 
         /// for any sepator string the the input is used</param>
         /// <returns>a datable containing the values form the file</returns>
-        public static DataTable loadCSV2datatable(string csvPath, string separator, int maxRows = 500, 
-            System.Text.Encoding codex = null)
+        public static DataTable loadCSV2datatable(string csvPath, string separator, int maxRows, System.Text.Encoding codex)
         {
             FileInfo csv = new FileInfo(csvPath);
             string sep;
@@ -1290,6 +1358,24 @@ namespace geopunt4Arcgis
                 }
             }
             return tbl;
+        }
+        /// <summary>Read a csv file into a datatable </summary>
+        /// <param name="csvPath">the path to the csv-file</param>
+        /// <param name="separator">the character separating the values, can be "COMMA", "PUNTCOMMA", "SPATIE" or "TAB", 
+        /// for any sepator string the the input is used</param>
+        /// <returns>a datable containing the values form the file</returns>
+        public static DataTable loadCSV2datatable(string csvPath, string separator, int maxRows)
+        {
+            return loadCSV2datatable(csvPath, separator, maxRows, null);
+        }
+        /// <summary>Read a csv file into a datatable </summary>
+        /// <param name="csvPath">the path to the csv-file</param>
+        /// <param name="separator">the character separating the values, can be "COMMA", "PUNTCOMMA", "SPATIE" or "TAB", 
+        /// for any sepator string the the input is used</param>
+        /// <returns>a datable containing the values form the file</returns>
+        public static DataTable loadCSV2datatable(string csvPath, string separator)
+        {
+            return loadCSV2datatable(csvPath, separator, 500, null);
         }
         #endregion
 

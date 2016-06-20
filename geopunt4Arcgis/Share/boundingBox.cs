@@ -47,11 +47,27 @@ namespace geopunt4Arcgis
         }
         /// <summary> returns the bounds of vlaanderen </summary>
         /// <param name="srs">the spatial reference of input and output, default lam72</param>
-        public boundingBox(int srs = 31370)
+        public boundingBox(int srs)
         {
             //handle SRS
             ISpatialReferenceFactory3 SpatialReferenceFactory = new SpatialReferenceEnvironmentClass();
             inSRS = SpatialReferenceFactory.CreateSpatialReference(srs);
+
+            //Set maxbounds
+            ISpatialReference lam72 = SpatialReferenceFactory.CreateSpatialReference(31370);
+            IEnvelope maxBounds = geopuntHelper.makeExtend(17750, 23720, 297240, 245340, lam72); //not outside flanders
+            IEnvelope prjBounds = geopuntHelper.Transform(maxBounds as IGeometry, inSRS) as IEnvelope;
+            Xmin = prjBounds.XMin;
+            Ymin = prjBounds.YMin;
+            Xmax = prjBounds.XMax;
+            Ymax = prjBounds.YMax;
+        }
+        /// <summary> returns the bounds of vlaanderen in lambert 72 </summary>
+        public boundingBox()
+        {
+           //handle SRS
+            ISpatialReferenceFactory3 SpatialReferenceFactory = new SpatialReferenceEnvironmentClass();
+            inSRS = SpatialReferenceFactory.CreateSpatialReference(31370);
 
             //Set maxbounds
             ISpatialReference lam72 = SpatialReferenceFactory.CreateSpatialReference(31370);
@@ -95,12 +111,17 @@ namespace geopunt4Arcgis
         /// <summary> return a strin in the "Xmin,Ymin|Xmax,Ymax" form, with sep=| and xySplit = ","</summary>
         /// <param name="xySplit">separator of x and y pairs </param>
         /// <param name="sep">sepator between xy-pairs </param>
-        public string ToBboxString( string xySplit = "|" , string sep="|")
-        {
+        public string ToBboxString(string xySplit, string sep){
             string toString, formatString;
             formatString = "{0:F4}" + xySplit + "{1:F4}" + sep + "{2:F4}" + xySplit + "{3:F4}";
             toString = string.Format(System.Globalization.CultureInfo.InvariantCulture, formatString, Xmin, Ymin, Xmax, Ymax);
             return toString;
+        }
+        public string ToBboxString(string sep){
+            return this.ToBboxString(sep, sep);
+        }
+        public string ToBboxString( ){
+            return this.ToBboxString("|","|");
         }
 
         /// <summary> Return bbox as arcgis IEnvelope </summary>
