@@ -368,7 +368,7 @@ namespace geopunt4Arcgis
 
         private void addDhmBtn_Click(object sender, EventArgs e)
         {
-            geopuntHelper.addWMS2map(view.FocusMap, "http://geo.agiv.be/inspire/wms/hoogte?", 40);
+           geopuntHelper.addWMS2map(view.FocusMap, "https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms?", 40, "DHMVII_DTM_1m");
         }
         #endregion
 

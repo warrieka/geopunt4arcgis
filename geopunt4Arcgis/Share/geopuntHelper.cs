@@ -1065,61 +1065,36 @@ namespace geopunt4Arcgis
         /// <summary>Add a WMS to the map</summary>
         /// <param name="map">The map to add the wms to</param>
         /// <param name="WMSurl">the url point to the WMS</param>
-        public static void addWMS2map(IMap map, string WMSurl, short transparency ) 
+        public static void addWMS2map(IMap map, string WMSurl, short transparency, string layername)
         {
-            IWMSGroupLayer wmsLayerGroup = new WMSMapLayerClass();
-            IWMSConnectionName WMSconnName = new WMSConnectionNameClass();
-            IName WMSname;
-            bool succes;
-            IWMSServiceDescription serviceDesc;
-            IDataLayer dataLyr;
-            ILayer lyr;
-            IActiveView view;
-            
-            IPropertySet props = new PropertySetClass();
-            props.SetProperty("URL", WMSurl);
-           // props.SetProperty("VERSION", "1.3.0");
+           IActiveView view;
+           ILayer lyr;
+           
+           if (layername != null) {
+              lyr = getWMSLayerByName(WMSurl, layername);
+           }
+           else {
+              lyr = getWMSasLayer(WMSurl);
+           }
 
-            WMSconnName.ConnectionProperties = props;
-            dataLyr = (IDataLayer)wmsLayerGroup;
-             
-            WMSname = (IName)WMSconnName;
-            try
-            {
-                succes = dataLyr.Connect(WMSname);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error op wms: " + WMSurl +"\n"+ e.Message + ": " + e.StackTrace);
-                return;
-            }
-            
-            if (!succes) 
-            {
-                MessageBox.Show("Kan onderstaande WMS niet openen. \n" + WMSurl);
-                return;
-            }
+           ILayerEffects layerEffects = (ILayerEffects)lyr;
+           layerEffects.Transparency = transparency < 100 ? transparency : (short)100;
 
-            serviceDesc = wmsLayerGroup.WMSServiceDescription;
-
-            wmsLayerGroup.Expanded = true;
-            lyr = (ILayer)wmsLayerGroup;
-            lyr.Name = serviceDesc.WMSTitle;
-
-            ILayerEffects layerEffects = (ILayerEffects)lyr;
-            layerEffects.Transparency = transparency < 100 ? transparency : (short)100;
-
-            map.AddLayer(lyr);
-            view = (IActiveView)map;
-
-            makeCompositeLayersVisibile(lyr);
-
-            view.ContentsChanged();
+           map.AddLayer(lyr);
+           view = (IActiveView)map;
+           makeCompositeLayersVisibile(lyr);
+           view.ContentsChanged();
         }
-        public static void addWMS2map(IMap map, string WMSurl){
-            addWMS2map(map, WMSurl, 0);
+        public static void addWMS2map(IMap map, string WMSurl, short transparency) {
+            addWMS2map(map, WMSurl, transparency, null);
         }
-        
+        public static void addWMS2map(IMap map, string WMSurl, string layerName){
+            addWMS2map(map, WMSurl, 0, layerName);
+        }
+        public static void addWMS2map(IMap map, string WMSurl) {
+            addWMS2map(map, WMSurl, 0, null);
+        }
+
         public static ILayer getWMSLayerByName(string WMSurl, string layerName)
         {
             IPropertySet propSet = new PropertySetClass();
@@ -1225,7 +1200,6 @@ namespace geopunt4Arcgis
             }
             return lyrNames;
         }
-
         public static List<IWMSLayerDescription> listWMSlayers(string WMSurl) 
         {
             List<IWMSLayerDescription> lyrNames = new List<IWMSLayerDescription>();
