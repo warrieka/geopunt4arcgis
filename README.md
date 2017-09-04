@@ -2,8 +2,9 @@ Geopunt4Arcgis
 ==============
 
 ####English:
+
 Geopunt4Arcgis is an extension for arcgis, aimed at local goverments in Flanders.
-It essentialy a port of geopunt4Qgis, to C-charp and Arcgis.
+It essentialy a port of geopunt4Qgis, to C-charp and Arcgis. As all potential users speak dutch, the rest of this README is in dutch.
 
 See also:
 https://github.com/warrieka/geopunt4Qgis 
@@ -11,7 +12,8 @@ https://github.com/warrieka/geopunt4Qgis
 
 ####Nederlands:
 
-##Doelstelling:
+Doelstelling:
+--------
 
 Geopunt4arcgis - 'Geopunt voor ArcGIS' is een add-in voor ESRI ArcGIS desktop, die de webservices van het Vlaamse geoportaal Geopunt ontsluit naar desktop ArcGIS-gebruikers.
 
@@ -30,12 +32,15 @@ Het gaat onder andere over:
 
 Om GIS-gebruikers binnen en buiten de Vlaamse Overheid dezelfde functionaliteit ter beschikking te stellen als aangeboden in Geopunt, wenst AGIV deze gebruikers te voorzien van software plug-ins die deze functionaliteit geïntegreerd aanbieden binnen de meest gangbare GIS-desktop omgevingen. 
 
-##Systeemvereisten
+Systeemvereisten
+-----
+
 - Minimaal: Windows XP, ArcGIS Destkop versie 10.0 sp4 of hoger, .net-framework versie 3.5
 - Aanbevolen: Windows7, ArcGIS Destkop versie 10.2 of hoger, .net-framework versie 4.0
 - Een verbinding met het Internet.
 
-##Functionaliteit
+Functionaliteit
+----
 
 **Zoeken op  adres (Geocoding)** 
 Op basis van een input string wordt gezocht naar een adres in CRAB. Je kiest de gemeente uit een selectielijst en geeft een adres op als input tekst. De input tekst bevat verplicht een straatnaam en optioneel een huisnummer. 
@@ -63,7 +68,8 @@ Zoek een kadastraal perceel op via gemeente, departement, sectie en perceelnumme
 **Metadata Catalogus**
 Zoek in de Geopunt-catalogus naar datasets en voeg ze toe aan je project. Het is gebaseerd op de webdiensten van het [metadatacenter](https://metadata.geopunt.be) van geopunt en bevat ondermeer metadatafiches van AGIV, het samenwerkingsverband MercatorNet en DOV. 
 
-##Gerelateerde links
+Gerelateerde links
+-----
 
 - [Add-ins voor Arcgis installeren](http://resources.arcgis.com/en/help/main/10.1/index.html#//014p0000001m000000)
 - [Over Geopunt](http://www.geopunt.be/over-geopunt/)
