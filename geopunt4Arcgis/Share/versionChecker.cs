@@ -17,7 +17,7 @@ namespace geopunt4Arcgis
         System.Diagnostics.Process prs;
 
         string versionJSurl = "http://www.geopunt.be/~/media/geopunt/voor-experts/plugins/bestanden/arcgis%20plugin/geopunt4arcgis.json";
-        string dlAddinUri = "http://www.geopunt.be/~/media/geopunt/voor-experts/plugins/bestanden/arcgis%20plugin%20bestand/geopunt4arcgis.esriAddIn";
+        string dlAddinUri =   "http://www.geopunt.be/~/media/geopunt/voor-experts/plugins/bestanden/arcgis%20plugin%20bestand/geopunt4arcgis.esriAddIn";
 
         public versionChecker(string proxyUrl, int port, int timeout) 
         {
@@ -70,12 +70,13 @@ namespace geopunt4Arcgis
 
                     if (currentVersion.CompareTo( versionJson["Version"]) < 0)
                     {
-                        DialogResult dlg = MessageBox.Show("De geopunt plugin is niet meer up to date, wenst u de nieuwe versie te downloaden? ",
+                        DialogResult dlg = MessageBox.Show("De geopunt plugin is niet meer up to date, wenst u de browser te openen om de nieuwe versie te downloaden? ",
                             ThisAddIn.Name + " " + currentVersion, MessageBoxButtons.YesNo);
 
                         if (dlg == DialogResult.Yes)
                         {
-                            reInstall();
+                           System.Diagnostics.Process.Start("http://www.geopunt.be/voor-experts/geopunt-plug-ins/arcgis%20plugin");
+                           // reInstall();  
                         }
                     }
                 }

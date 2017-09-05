@@ -13,6 +13,7 @@ namespace geopunt4Arcgis.dataHandler
     {
         public WebClient client;
         NameValueCollection qryValues;
+        string GipodBaseUrl = "https://api.gipod.vlaanderen.be/ws/v1";
 
         public gipod(string proxyUrl, int port, int timeout)
         {
@@ -59,7 +60,7 @@ namespace geopunt4Arcgis.dataHandler
             }
 
             client.QueryString = qryValues;
-            Uri gipodUri = new Uri("http://gipod.api.agiv.be/ws/v1/referencedata/" + tail);
+            Uri gipodUri = new Uri( GipodBaseUrl + "/referencedata/" + tail);
             string json = client.DownloadString(gipodUri);
             List<string> gipodResponse = JsonConvert.DeserializeObject<List<string>>(json);
             return gipodResponse;
@@ -75,7 +76,7 @@ namespace geopunt4Arcgis.dataHandler
 
             client.QueryString = qryValues;
             
-            Uri gipodUri = new Uri("http://gipod.api.agiv.be/ws/v1/manifestation");
+            Uri gipodUri = new Uri(GipodBaseUrl + "/manifestation");
             string json = client.DownloadString(gipodUri);
 
             List<datacontract.gipodResponse> gipodRespons = JsonConvert.DeserializeObject<List<datacontract.gipodResponse>>(json);
@@ -111,7 +112,7 @@ namespace geopunt4Arcgis.dataHandler
 
             client.QueryString = qryValues;
 
-            Uri gipodUri = new Uri("http://gipod.api.agiv.be/ws/v1/workassignment");
+            Uri gipodUri = new Uri(GipodBaseUrl + "/workassignment");
             string json = client.DownloadString(gipodUri);
 
             List<datacontract.gipodResponse> gipodRespons = JsonConvert.DeserializeObject<List<datacontract.gipodResponse>>(json);

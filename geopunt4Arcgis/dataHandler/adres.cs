@@ -13,6 +13,7 @@ namespace geopunt4Arcgis.dataHandler
     {
         public delegate void adresSuggestionDelegate(object sender, DownloadStringCompletedEventArgs e);
         public WebClient client;
+        string crabBaseUrl = "http://loc.api.geopunt.be/v4";
 
         public adresSuggestion( adresSuggestionDelegate callback, string proxyUrl, int port, int timeout)
         {
@@ -74,13 +75,13 @@ namespace geopunt4Arcgis.dataHandler
 
         public void getAdresSuggestionAsync(string q, int c)
         {
-            string adresUrl = string.Format(CultureInfo.InvariantCulture, "http://loc.api.geopunt.be/v2/Suggestion?c={1}&q={0}", q, c);
+            string adresUrl = string.Format(CultureInfo.InvariantCulture, crabBaseUrl + "/Suggestion?c={1}&q={0}", q, c);
             client.DownloadStringAsync(new Uri( adresUrl ));
         }
 
         public List<string> getAdresSuggestion(string q, int c)
         {
-            string adresUrl = string.Format(CultureInfo.InvariantCulture, "http://loc.api.geopunt.be/geolocation/Suggestion?c={1}&q={0}", q, c);
+            string adresUrl = string.Format(CultureInfo.InvariantCulture, crabBaseUrl + "/Suggestion?c={1}&q={0}", q, c);
             string json = client.DownloadString(new Uri(adresUrl));
             datacontract.crabSuggestion crabSug = JsonConvert.DeserializeObject<datacontract.crabSuggestion>(json);
             return crabSug.SuggestionResult;
@@ -91,6 +92,7 @@ namespace geopunt4Arcgis.dataHandler
     {
         public delegate void adresLocationDelegate(object sender, DownloadStringCompletedEventArgs e);
         public WebClient client;
+        string crabBaseUrl = "http://loc.api.geopunt.be/v4";
 
         public adresLocation(adresLocationDelegate callback, string proxyUrl, int port, int timeout)
         {
@@ -151,13 +153,13 @@ namespace geopunt4Arcgis.dataHandler
 
         public void getAdresLocationAsync(string q, int c)
         {
-            string adresUrl = string.Format(CultureInfo.InvariantCulture, "http://loc.api.geopunt.be/v2/Location?c={1}&q={0}", q, c);
+            string adresUrl = string.Format(CultureInfo.InvariantCulture, crabBaseUrl + "/Location?c={1}&q={0}", q, c);
             client.DownloadStringAsync(new Uri(adresUrl));
         }
 
         public List<datacontract.locationResult> getAdresLocation(string q, int c)
         {
-            string adresUrl = string.Format(CultureInfo.InvariantCulture, "http://loc.api.geopunt.be/v2/Location?c={1}&q={0}", q, c);
+            string adresUrl = string.Format(CultureInfo.InvariantCulture, crabBaseUrl + "/Location?c={1}&q={0}", q, c);
             string json = client.DownloadString(new Uri(adresUrl));
             datacontract.crabLocation crabLoc = JsonConvert.DeserializeObject<datacontract.crabLocation>(json);
             return crabLoc.LocationResult;
@@ -165,13 +167,13 @@ namespace geopunt4Arcgis.dataHandler
 
         public void getXYadresLocationAsync(Double xLam72, Double yLam72, int c)
         {
-            string adresUrl = string.Format(CultureInfo.InvariantCulture, "http://loc.api.geopunt.be/v2/Location?xy={0},{1}&c={2}", xLam72, yLam72, c);
+            string adresUrl = string.Format(CultureInfo.InvariantCulture, crabBaseUrl + "/Location?xy={0},{1}&c={2}", xLam72, yLam72, c);
             client.DownloadStringAsync(new Uri(adresUrl));
         }
 
         public List<datacontract.locationResult> getXYadresLocation(Double xLam72, Double yLam72, int c)
         {
-            string adresUrl = string.Format( CultureInfo.InvariantCulture , "http://loc.api.geopunt.be/v2/Location?xy={0},{1}&c={2}", xLam72, yLam72, c);
+            string adresUrl = string.Format(CultureInfo.InvariantCulture, crabBaseUrl + "/Location?xy={0},{1}&c={2}", xLam72, yLam72, c);
             string json = client.DownloadString(new Uri(adresUrl));
             datacontract.crabLocation crabLoc = JsonConvert.DeserializeObject<datacontract.crabLocation>(json);
             return crabLoc.LocationResult;
