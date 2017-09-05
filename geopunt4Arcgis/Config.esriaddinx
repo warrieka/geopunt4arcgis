@@ -10,7 +10,7 @@ die met deze add-in geïntegreed worden in Arcgis.</Description>
   <Date>05/09/2017</Date>
   <Targets>
     <!--<Target name="Desktop" version="10.0" /> -->
-    <Target name="Desktop" version="10.2" />
+    <Target name="Desktop" version="10.4" />
   </Targets>
    <!--<AddIn language="CLR4.0" library="geopunt4Arcgis.dll" namespace="geopunt4Arcgis"> -->
    <AddIn language="CLR" library="geopunt4Arcgis.dll" namespace="geopunt4Arcgis"> 
