@@ -9,9 +9,9 @@ using System.Resources;
 [assembly: AssemblyTitle("geopunt4Arcgis")]
 [assembly: AssemblyDescription("Het Vlaamse Geoportaal Geopunt biedt een aantal geografische diensten (web-services) aan, die met deze add-in toegevoegd worden in Arcgis")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AGIV")]
+[assembly: AssemblyCompany("Informatie Vlaanderen")]
 [assembly: AssemblyProduct("geopunt4Arcgis")]
-[assembly: AssemblyCopyright("Copyright © AGIV 2017")]
+[assembly: AssemblyCopyright("Copyright © Informatie Vlaanderen 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("nl-BE")]
 
@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.8.7.0")]
-[assembly: AssemblyFileVersion("1.8.7.0")]
+[assembly: AssemblyVersion("1.8.8.0")]
+[assembly: AssemblyFileVersion("1.8.8.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
