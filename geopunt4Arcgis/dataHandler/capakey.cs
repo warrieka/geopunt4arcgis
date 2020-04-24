@@ -41,7 +41,7 @@ namespace geopunt4Arcgis.dataHandler
             }
             client.Headers["Content-type"] = "application/json";
             qryValues = new NameValueCollection();
-            baseUri = "https://geoservices.informatievlaanderen.be/capakey/api/v1/";
+            baseUri = "http://geoservices.informatievlaanderen.be/capakey/api/v1/";
         }
 
         public datacontract.municipalityList getMunicipalities()

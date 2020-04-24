@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -84,7 +85,7 @@ namespace geopunt4Arcgis
             }
             return gpExtension;
         }
-
+/*
         protected override void OnStartup()
         {
             try
@@ -98,7 +99,7 @@ namespace geopunt4Arcgis
             }
             base.OnStartup();
         }
-
+*/
         protected override void OnShutdown()
         {
             //trash every form and its resources still open on shutdown.
