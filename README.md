@@ -1,7 +1,7 @@
 Geopunt4Arcgis
 ==============
 
-####English:
+#### English:
 
 Geopunt4Arcgis is an extension for arcgis, aimed at local goverments in Flanders.
 It essentialy a port of geopunt4Qgis, to C-charp and Arcgis. As all potential users speak dutch, the rest of this README is in dutch.
@@ -10,7 +10,7 @@ See also:
 https://github.com/warrieka/geopunt4Qgis 
 
 
-####Nederlands:
+#### Nederlands:
 
 Doelstelling:
 --------
