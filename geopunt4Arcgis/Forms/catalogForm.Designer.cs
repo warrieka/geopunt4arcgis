@@ -46,13 +46,11 @@
          this.typeLbl = new System.Windows.Forms.Label();
          this.INSPIREthemeLbl = new System.Windows.Forms.Label();
          this.typeCbx = new System.Windows.Forms.ComboBox();
-         this.bronCatCbx = new System.Windows.Forms.ComboBox();
          this.INSPIREthemeCbx = new System.Windows.Forms.ComboBox();
          this.orgNameCbx = new System.Windows.Forms.ComboBox();
          this.GDIthemeCbx = new System.Windows.Forms.ComboBox();
          this.GDIthemaLbl = new System.Windows.Forms.Label();
          this.orgName = new System.Windows.Forms.Label();
-         this.BronLbl = new System.Windows.Forms.Label();
          this.statusStrip.SuspendLayout();
          ((System.ComponentModel.ISupportInitialize)(this.contentSplitContainer)).BeginInit();
          this.contentSplitContainer.Panel1.SuspendLayout();
@@ -122,7 +120,7 @@
          this.contentSplitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-         this.contentSplitContainer.Location = new System.Drawing.Point(13, 183);
+         this.contentSplitContainer.Location = new System.Drawing.Point(13, 146);
          this.contentSplitContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.contentSplitContainer.Name = "contentSplitContainer";
          // 
@@ -133,7 +131,7 @@
          // contentSplitContainer.Panel2
          // 
          this.contentSplitContainer.Panel2.Controls.Add(this.webView);
-         this.contentSplitContainer.Size = new System.Drawing.Size(917, 340);
+         this.contentSplitContainer.Size = new System.Drawing.Size(917, 377);
          this.contentSplitContainer.SplitterDistance = 298;
          this.contentSplitContainer.TabIndex = 10;
          // 
@@ -146,7 +144,7 @@
          this.searchResultsList.Location = new System.Drawing.Point(0, 0);
          this.searchResultsList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.searchResultsList.Name = "searchResultsList";
-         this.searchResultsList.Size = new System.Drawing.Size(298, 340);
+         this.searchResultsList.Size = new System.Drawing.Size(298, 377);
          this.searchResultsList.TabIndex = 0;
          this.searchResultsList.SelectedIndexChanged += new System.EventHandler(this.searchResultsList_SelectedIndexChanged);
          // 
@@ -156,19 +154,19 @@
          this.webView.Location = new System.Drawing.Point(0, 0);
          this.webView.MinimumSize = new System.Drawing.Size(20, 20);
          this.webView.Name = "webView";
-         this.webView.Size = new System.Drawing.Size(615, 340);
+         this.webView.Size = new System.Drawing.Size(615, 377);
          this.webView.TabIndex = 1;
          // 
          // OpenArcgisBtn
          // 
          this.OpenArcgisBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.OpenArcgisBtn.Enabled = false;
-         this.OpenArcgisBtn.Location = new System.Drawing.Point(685, 533);
+         this.OpenArcgisBtn.Location = new System.Drawing.Point(632, 533);
          this.OpenArcgisBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.OpenArcgisBtn.Name = "OpenArcgisBtn";
-         this.OpenArcgisBtn.Size = new System.Drawing.Size(116, 34);
+         this.OpenArcgisBtn.Size = new System.Drawing.Size(183, 34);
          this.OpenArcgisBtn.TabIndex = 11;
-         this.OpenArcgisBtn.Text = "Arcgis server";
+         this.OpenArcgisBtn.Text = "Arcgis service toevoegen";
          this.OpenArcgisBtn.UseVisualStyleBackColor = true;
          this.OpenArcgisBtn.Click += new System.EventHandler(this.OpenDownloadBtn_Click);
          // 
@@ -176,12 +174,12 @@
          // 
          this.addWMSbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
          this.addWMSbtn.Enabled = false;
-         this.addWMSbtn.Location = new System.Drawing.Point(529, 533);
+         this.addWMSbtn.Location = new System.Drawing.Point(476, 533);
          this.addWMSbtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.addWMSbtn.Name = "addWMSbtn";
          this.addWMSbtn.Size = new System.Drawing.Size(150, 34);
          this.addWMSbtn.TabIndex = 12;
-         this.addWMSbtn.Text = "WMS-toevoegen";
+         this.addWMSbtn.Text = "WMS toevoegen";
          this.addWMSbtn.UseVisualStyleBackColor = true;
          this.addWMSbtn.Click += new System.EventHandler(this.addWMSbtn_Click);
          // 
@@ -205,7 +203,8 @@
          this.filterResultsCbx.Items.AddRange(new object[] {
             "Alles weergeven",
             "WMS",
-            "Download"});
+            "Download",
+            "Arcgis service"});
          this.filterResultsCbx.Location = new System.Drawing.Point(13, 533);
          this.filterResultsCbx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.filterResultsCbx.Name = "filterResultsCbx";
@@ -221,7 +220,7 @@
          this.filterBox.Location = new System.Drawing.Point(12, 50);
          this.filterBox.Name = "filterBox";
          this.filterBox.Padding = new System.Windows.Forms.Padding(8);
-         this.filterBox.Size = new System.Drawing.Size(918, 128);
+         this.filterBox.Size = new System.Drawing.Size(918, 91);
          this.filterBox.TabIndex = 15;
          this.filterBox.TabStop = false;
          this.filterBox.Text = "Filtercriteria metadata";
@@ -236,22 +235,19 @@
          this.filterPane.Controls.Add(this.typeLbl, 2, 0);
          this.filterPane.Controls.Add(this.INSPIREthemeLbl, 2, 1);
          this.filterPane.Controls.Add(this.typeCbx, 3, 0);
-         this.filterPane.Controls.Add(this.bronCatCbx, 1, 2);
          this.filterPane.Controls.Add(this.INSPIREthemeCbx, 3, 1);
          this.filterPane.Controls.Add(this.orgNameCbx, 1, 1);
          this.filterPane.Controls.Add(this.GDIthemeCbx, 1, 0);
          this.filterPane.Controls.Add(this.GDIthemaLbl, 0, 0);
          this.filterPane.Controls.Add(this.orgName, 0, 1);
-         this.filterPane.Controls.Add(this.BronLbl, 0, 2);
          this.filterPane.Dock = System.Windows.Forms.DockStyle.Fill;
          this.filterPane.Location = new System.Drawing.Point(8, 23);
          this.filterPane.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.filterPane.Name = "filterPane";
-         this.filterPane.RowCount = 3;
+         this.filterPane.RowCount = 2;
          this.filterPane.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
          this.filterPane.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-         this.filterPane.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-         this.filterPane.Size = new System.Drawing.Size(902, 97);
+         this.filterPane.Size = new System.Drawing.Size(902, 60);
          this.filterPane.TabIndex = 10;
          // 
          // typeLbl
@@ -260,7 +256,7 @@
          this.typeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
          this.typeLbl.Location = new System.Drawing.Point(453, 0);
          this.typeLbl.Name = "typeLbl";
-         this.typeLbl.Size = new System.Drawing.Size(174, 32);
+         this.typeLbl.Size = new System.Drawing.Size(174, 30);
          this.typeLbl.TabIndex = 17;
          this.typeLbl.Text = "Type: ";
          // 
@@ -268,9 +264,9 @@
          // 
          this.INSPIREthemeLbl.AutoSize = true;
          this.INSPIREthemeLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.INSPIREthemeLbl.Location = new System.Drawing.Point(453, 32);
+         this.INSPIREthemeLbl.Location = new System.Drawing.Point(453, 30);
          this.INSPIREthemeLbl.Name = "INSPIREthemeLbl";
-         this.INSPIREthemeLbl.Size = new System.Drawing.Size(174, 32);
+         this.INSPIREthemeLbl.Size = new System.Drawing.Size(174, 30);
          this.INSPIREthemeLbl.TabIndex = 9;
          this.INSPIREthemeLbl.Text = "INSPIRE-thema:";
          // 
@@ -286,25 +282,13 @@
          this.typeCbx.Size = new System.Drawing.Size(266, 24);
          this.typeCbx.TabIndex = 16;
          // 
-         // bronCatCbx
-         // 
-         this.bronCatCbx.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-         this.bronCatCbx.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-         this.bronCatCbx.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.bronCatCbx.FormattingEnabled = true;
-         this.bronCatCbx.Location = new System.Drawing.Point(183, 66);
-         this.bronCatCbx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-         this.bronCatCbx.Name = "bronCatCbx";
-         this.bronCatCbx.Size = new System.Drawing.Size(264, 24);
-         this.bronCatCbx.TabIndex = 14;
-         // 
          // INSPIREthemeCbx
          // 
          this.INSPIREthemeCbx.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
          this.INSPIREthemeCbx.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
          this.INSPIREthemeCbx.Dock = System.Windows.Forms.DockStyle.Fill;
          this.INSPIREthemeCbx.FormattingEnabled = true;
-         this.INSPIREthemeCbx.Location = new System.Drawing.Point(633, 34);
+         this.INSPIREthemeCbx.Location = new System.Drawing.Point(633, 32);
          this.INSPIREthemeCbx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.INSPIREthemeCbx.Name = "INSPIREthemeCbx";
          this.INSPIREthemeCbx.Size = new System.Drawing.Size(266, 24);
@@ -316,7 +300,7 @@
          this.orgNameCbx.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
          this.orgNameCbx.Dock = System.Windows.Forms.DockStyle.Fill;
          this.orgNameCbx.FormattingEnabled = true;
-         this.orgNameCbx.Location = new System.Drawing.Point(183, 34);
+         this.orgNameCbx.Location = new System.Drawing.Point(183, 32);
          this.orgNameCbx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
          this.orgNameCbx.Name = "orgNameCbx";
          this.orgNameCbx.Size = new System.Drawing.Size(264, 24);
@@ -340,7 +324,7 @@
          this.GDIthemaLbl.Dock = System.Windows.Forms.DockStyle.Fill;
          this.GDIthemaLbl.Location = new System.Drawing.Point(3, 0);
          this.GDIthemaLbl.Name = "GDIthemaLbl";
-         this.GDIthemaLbl.Size = new System.Drawing.Size(174, 32);
+         this.GDIthemaLbl.Size = new System.Drawing.Size(174, 30);
          this.GDIthemaLbl.TabIndex = 4;
          this.GDIthemaLbl.Text = "GDI-thema:";
          // 
@@ -348,21 +332,11 @@
          // 
          this.orgName.AutoSize = true;
          this.orgName.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.orgName.Location = new System.Drawing.Point(3, 32);
+         this.orgName.Location = new System.Drawing.Point(3, 30);
          this.orgName.Name = "orgName";
-         this.orgName.Size = new System.Drawing.Size(174, 32);
+         this.orgName.Size = new System.Drawing.Size(174, 30);
          this.orgName.TabIndex = 5;
          this.orgName.Text = "Organisatie naam:";
-         // 
-         // BronLbl
-         // 
-         this.BronLbl.AutoSize = true;
-         this.BronLbl.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.BronLbl.Location = new System.Drawing.Point(3, 64);
-         this.BronLbl.Name = "BronLbl";
-         this.BronLbl.Size = new System.Drawing.Size(174, 33);
-         this.BronLbl.TabIndex = 6;
-         this.BronLbl.Text = "Bron catalogus";
          // 
          // catalogForm
          // 
@@ -413,13 +387,11 @@
         private System.Windows.Forms.GroupBox filterBox;
         private System.Windows.Forms.TableLayoutPanel filterPane;
         private System.Windows.Forms.ComboBox typeCbx;
-        private System.Windows.Forms.ComboBox bronCatCbx;
         private System.Windows.Forms.ComboBox INSPIREthemeCbx;
         private System.Windows.Forms.ComboBox orgNameCbx;
         private System.Windows.Forms.ComboBox GDIthemeCbx;
         private System.Windows.Forms.Label GDIthemaLbl;
         private System.Windows.Forms.Label orgName;
-        private System.Windows.Forms.Label BronLbl;
         private System.Windows.Forms.WebBrowser webView;
         private System.Windows.Forms.Label INSPIREthemeLbl;
         private System.Windows.Forms.Label typeLbl;

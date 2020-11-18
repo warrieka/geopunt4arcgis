@@ -28,7 +28,6 @@ namespace geopunt4Arcgis
         /*filters lists*/
         List<string> gdiThemes;
         List<string> orgNames;
-        Dictionary<string, string> dataBronnen;
         Dictionary<string, string> dataTypes;
         List<string> inspKeyw;
 
@@ -57,18 +56,15 @@ namespace geopunt4Arcgis
             keyWords.AddRange(  clg.getKeyWords().ToArray() );
             keywordTxt.AutoCompleteSource = AutoCompleteSource.CustomSource;
             keywordTxt.AutoCompleteCustomSource = keyWords;
+
             gdiThemes = clg.getGDIthemes();
             gdiThemes.Insert(0, "");
             GDIthemeCbx.DataSource = gdiThemes;
 
             orgNames = clg.getOrganisations();
             orgNames.Insert(0, "");
+            orgNames.Sort();
             orgNameCbx.DataSource = orgNames;
-
-            dataBronnen = clg.getSources();
-            List<string> bronnen = dataBronnen.Select(c => c.Value).ToList();
-            bronnen.Insert(0, "");
-            bronCatCbx.DataSource = bronnen;
 
             dataTypes = clg.dataTypes;
             List<string> dtypes = dataTypes.Select(c => c.Key).ToList();
@@ -77,6 +73,7 @@ namespace geopunt4Arcgis
 
             inspKeyw = clg.inspireKeywords();
             inspKeyw.Insert(0, "");
+            inspKeyw.Sort();
             INSPIREthemeCbx.DataSource = inspKeyw;
 
             filterResultsCbx.SelectedIndex = 0;
@@ -131,6 +128,7 @@ namespace geopunt4Arcgis
         #endregion
 
         #region "private functions"
+
         private void updateFilter()
         {
             string filterTxt = filterResultsCbx.Text;
@@ -143,6 +141,10 @@ namespace geopunt4Arcgis
                 case "WMS":
                     searchResultsList.Items.Clear();
                     searchResultsList.Items.AddRange(filterWMS());
+                    break;
+                case "Arcgis service":
+                    searchResultsList.Items.Clear();
+                    searchResultsList.Items.AddRange(filterAGS());
                     break;
                 case "Download":
                     searchResultsList.Items.Clear();
@@ -168,7 +170,15 @@ namespace geopunt4Arcgis
                     where metaList.geturl(g.title, "OGC:WMS")
                     select g.title).ToArray();
         }
-        
+
+        private string[] filterAGS()
+        {
+           if (metaList == null) return new string[0];
+           return (from g in metaList.metadataRecords
+                   where  metaList.geturl(g.title, "Esri Rest API", 0)
+                   select g.title).ToArray();
+        }
+
         private string[] geenFilter()
         {
             if (metaList == null) return new string[0];
@@ -185,11 +195,9 @@ namespace geopunt4Arcgis
                 string orgName = orgNameCbx.Text;
                 string dataType = "";
                 if (dataTypes.Select(c => c.Key).Contains(typeCbx.Text)) dataType = dataTypes[typeCbx.Text];
-                string siteId = "";
-                if (dataBronnen.Select(c => c.Key).Contains(bronCatCbx.Text)) siteId = dataBronnen[bronCatCbx.Text];
                 string inspiretheme = INSPIREthemeCbx.Text;
 
-                metaList = clg.searchAll(zoekString, themekey, orgName, dataType, siteId, inspiretheme);
+                metaList = clg.searchAll(zoekString, themekey, orgName, dataType, "", inspiretheme);
 
                 statusMsgLbl.Text = "";
                 webView.DocumentText = "";
@@ -333,6 +341,7 @@ namespace geopunt4Arcgis
             }
         }
         #endregion 
+
 
     }
 }
