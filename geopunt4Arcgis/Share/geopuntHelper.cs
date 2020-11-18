@@ -1061,6 +1061,121 @@ namespace geopunt4Arcgis
 
         #endregion
 
+
+       #region "AGS"
+        public static void addAGS2map(IMap map, string AGSurl, string Name)
+        {
+           var agsUri = new Uri(AGSurl);
+           int layerID;
+           var hasID = Int32.TryParse(agsUri.Segments.Last(), out layerID);
+           if (!hasID) return;
+
+           ILayer lyr = GetArcGISMapServiceLayer(Name, layerID, AGSurl.Replace( layerID.ToString() + agsUri.Query, "") );
+
+           map.AddLayer(lyr);
+           var view = (IActiveView)map;
+           view.ContentsChanged();
+        }
+
+        public static ILayer GetArcGISMapServiceLayer(string name, int layerID, string url)
+        {
+           string svcName = GetServiceName(url);
+           string svcUrl = GetServiceUrl(url);
+           var gisServer = OpenConnection(svcUrl);
+
+           var soName = FindServerObjectname(gisServer, svcName);
+           if (soName == null)
+              throw new Exception("unable to find serverobject for " + svcName);
+
+           var outLayer = GetArcGisServerGroupLayer(soName) as ILayer;
+           outLayer.Name = name;
+           var grpLayer = outLayer as ICompositeLayer2;
+           if (grpLayer != null)
+           {
+                 grpLayer.Expanded = false;
+                 for (int i = 0; i < grpLayer.Count; i++)
+                 {
+                    var subLayer = grpLayer.get_Layer(i) as IMapServerSublayer;
+                    
+                    ((ILayer2)subLayer).Visible = false;
+                    if (subLayer.LayerDescription.ID == layerID)
+                    {
+                       ((ILayer2)subLayer).Visible = true;
+                    }
+                 };
+           }
+           return outLayer;
+        }
+
+        private static IMapServerLayer GetArcGisServerGroupLayer(IAGSServerObjectName3 soName)
+        {
+           IMapServerLayer outLayer = null;
+           var factory = new MapServerLayerFactory() as ILayerFactory;
+           try
+           {
+              //create an enum of layers using the name object (will contain only a single layer)
+              outLayer = factory.Create(soName).Next() as IMapServerLayer;
+           }
+           catch
+           {
+              throw;
+           }
+           finally
+           {
+              System.Runtime.InteropServices.Marshal.FinalReleaseComObject(factory);
+           }
+           return outLayer;
+        }
+
+        private static IAGSServerObjectName3 FindServerObjectname(IAGSServerConnection gisServer, string svcName)
+        {
+           var soNames = gisServer.ServerObjectNames;
+           IAGSServerObjectName3 soName;
+
+           while ((soName = (IAGSServerObjectName3)soNames.Next()) != null)
+           {
+              //MessageBox.Show(soName.Name + " > " + svcName.Replace("/MapServer/", ""));
+              if ((soName.Type == "MapServer") && (soName.Name == svcName.Replace("/MapServer/", "")))
+              {
+                
+                 return soName;
+              }
+           }
+           return null;
+        }
+
+        private static IAGSServerConnection OpenConnection(string svcUrl)
+        {
+           var connectionProps = new PropertySet() as IPropertySet;
+           connectionProps.SetProperty("URL", svcUrl); 
+           //create a new ArcGIS Server connection factory
+           var connectionFactory = (IAGSServerConnectionFactory2)new AGSServerConnectionFactory();
+           var gisServer = connectionFactory.Open(connectionProps, 0);
+           System.Runtime.InteropServices.Marshal.FinalReleaseComObject(connectionFactory);
+           return gisServer;
+        }
+
+        private static string GetServiceUrl(string url)
+        {
+           // remove the "rest" part of the url 
+           int idx = url.ToString().ToUpper().IndexOf(@"/REST/");
+           string svcUrl = url.Substring(0, idx) + @"/services";
+           return svcUrl;
+        }
+
+        private static string GetServiceName(string url)
+        {
+           int idx = url.ToString().ToUpper().IndexOf(@"/SERVICES/") + 10;
+           string svcName = url.ToString().Substring(idx).Trim();
+           if (svcName.ToUpper().EndsWith(@"/MAPSERVER"))
+           {
+              svcName = svcName.Substring(0, svcName.ToUpper().LastIndexOf(@"/MAPSERVER"));
+           }
+           return svcName;
+        }
+
+        #endregion
+
         #region "WMS handlers"
         /// <summary>Add a WMS to the map</summary>
         /// <param name="map">The map to add the wms to</param>

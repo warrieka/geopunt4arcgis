@@ -3,88 +3,108 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace geopunt4Arcgis.datacontract
 {
     public class metadata
     {
+        [JsonProperty("source")]
         public string sourceID { get; set; }
+        [JsonProperty("link")]
+        [JsonConverter(typeof(CustomArrayConverter<string>))]
         public List<string> links { get; set; }
         public string title { get; set; }
+        [JsonProperty("abstract")]
         public string description { get; set; }
+        [JsonProperty("geonet:info")]
+        public geonet geonet { get; set; }
+    }
+
+    public class geonet
+    {
+       public int id { get; set; }
+       public string uuid { get; set; }
+       public DateTime createDate { get; set; }
+       public DateTime changeDate  { get; set; }
+       public string source { get; set; }
+    }
+
+    public class summary
+    {
+       [JsonProperty("@count")]
+       public int count { get; set; }
+
     }
 
     public class metadataResponse
     {
-        public List<metadata> metadataRecords { get; set; }
-        public int maxCount { get; set; }
+
+        [JsonProperty("@from")]
         public int from { get; set; }
+        [JsonProperty("@to")]
         public int to { get; set; }
 
+        public summary summary { get; set; }
+        [JsonProperty("metadata")]
+        public List<metadata> metadataRecords { get; set; }
 
-        public bool geturl(string searchText, string stype, out string wmsUrl, out string wmsLayer)
+        #region methods
+        public bool geturl(string searchText, string stype, out string wmsUrl, out string wmsLayer, int field_idx = 3)
         {
             wmsUrl = wmsLayer = null;
 
-            if (metadataRecords == null) return false;
+            if (metadataRecords == null | metadataRecords.Count == 0) return false;
 
-            string selVal = searchText;
-            List<datacontract.metadata> metaObjs = (from n in metadataRecords
-                                                    where n.title == selVal
-                                                    select n).ToList();
+            var metaObj = metadataRecords.FirstOrDefault(n => n.title == searchText);
 
-            if (metaObjs.Count > 0 && metaObjs[0].links.Count > 0)
+            if (metaObj.links == null || metaObj.links.Count == 0) return false;
+
+            foreach (var link in metaObj.links)
             {
-                datacontract.metadata metaObj = metaObjs[0];
-                List<List<string>> linkList = metaObj.links.Select(c => c.Split('|').ToList()).ToList();
-                bool hasWMS = false;
+               var linkList = link.Split('|');
+               if (linkList.Count() <= 3) return false;
 
-                for( int c = 1; c < linkList.Count; c++)
-                {
-                    List<string> link = linkList[c];
-                    for (int i = 1; i < link.Count; i++)
-                    {
-                        if (link[i].ToUpper().Contains(stype) && link[i - 1].ToLower().Contains("http"))
-                        {
-                            hasWMS = true;
-                            wmsUrl = link[i - 1];
-                            wmsLayer = link[0];
-                            if (c > 1) return hasWMS;
-                        }
-                    }
-                }
-                return hasWMS;
+               wmsLayer = linkList[0];
+               wmsUrl = linkList[2];
+               if (linkList[field_idx].ToUpper().Contains(stype.ToUpper())) return true;
             }
-            else return false;
+            return false;
         }
 
-        public bool geturl(string searchText, string stype)
+        public bool geturl(string searchText, string stype, int field_idx = 3)
         {
-            if (metadataRecords == null) return false;
-
-            string selVal = searchText;
-            List<datacontract.metadata> metaObjs = (from n in metadataRecords
-                                                    where n.title == selVal
-                                                    select n).ToList();
-
-            if (metaObjs.Count > 0 && metaObjs[0].links.Count > 0)
-            {
-                datacontract.metadata metaObj = metaObjs[0];
-                List<List<string>> linkList = metaObj.links.Select(c => c.Split('|').ToList()).ToList();
-                for (int c = 1; c < linkList.Count; c++)
-                {
-                    List<string> link = linkList[c];
-                    for (int i = 1; i < link.Count; i++)
-                    {
-                        if (link[i].ToUpper().Contains(stype) && link[i - 1].ToLower().Contains("http"))
-                        {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            else return false;
+           string wmsUrl; string wmsLayer;
+           return geturl(searchText, stype, out wmsUrl, out wmsLayer, field_idx);
         }
+        #endregion
     }
+
+
+    internal class CustomArrayConverter<T> : JsonConverter
+    {
+       public override bool CanConvert(Type objectType)
+       {
+          return (objectType == typeof(List<T>));
+       }
+
+       public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+       {
+          JToken token = JToken.Load(reader);
+          if (token.Type == JTokenType.Array)
+             return token.ToObject<List<T>>();
+          return new List<T> { token.ToObject<T>() };
+       }
+
+       public override bool CanWrite
+       {
+          get  {return false;}
+       }
+       public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+       {
+          throw new NotImplementedException();
+       }
+    }
+
 }

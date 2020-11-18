@@ -52,7 +52,7 @@ namespace geopunt4Arcgis
 
         public void initGui()
         {
-            clg = new dataHandler.catalog(gpExtension.timeout);
+            clg = new dataHandler.catalog(timeout: gpExtension.timeout);
             keyWords = new AutoCompleteStringCollection();
             keyWords.AddRange(  clg.getKeyWords().ToArray() );
             keywordTxt.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -66,7 +66,7 @@ namespace geopunt4Arcgis
             orgNameCbx.DataSource = orgNames;
 
             dataBronnen = clg.getSources();
-            List<string> bronnen = dataBronnen.Select(c => c.Key).ToList();
+            List<string> bronnen = dataBronnen.Select(c => c.Value).ToList();
             bronnen.Insert(0, "");
             bronCatCbx.DataSource = bronnen;
 
@@ -78,10 +78,6 @@ namespace geopunt4Arcgis
             inspKeyw = clg.inspireKeywords();
             inspKeyw.Insert(0, "");
             INSPIREthemeCbx.DataSource = inspKeyw;
-
-            INSPIREannexCbx.DataSource = clg.inpireAnnex;
-
-            INSPIREserviceCbx.DataSource = clg.inspireServiceTypes;
 
             filterResultsCbx.SelectedIndex = 0;
         }
@@ -120,7 +116,7 @@ namespace geopunt4Arcgis
 
         private void OpenDownloadBtn_Click(object sender, EventArgs e)
         {
-            download();
+            loadArcgis();
         }
 
         private void addWMSbtn_Click(object sender, EventArgs e)
@@ -180,15 +176,6 @@ namespace geopunt4Arcgis
                     select g.title).ToArray();
         }
 
-        private void download()
-        {
-            string selVal = searchResultsList.Text;
-            string dlName; string dlUrl;
-
-            bool hasDl = metaList.geturl(selVal, "DOWNLOAD", out dlUrl, out dlName);
-            if (hasDl) System.Diagnostics.Process.Start(dlUrl);
-        }
-
         private void search()
         {
             try
@@ -201,32 +188,30 @@ namespace geopunt4Arcgis
                 string siteId = "";
                 if (dataBronnen.Select(c => c.Key).Contains(bronCatCbx.Text)) siteId = dataBronnen[bronCatCbx.Text];
                 string inspiretheme = INSPIREthemeCbx.Text;
-                string inspireannex = INSPIREannexCbx.Text;
-                string inspireServiceType = INSPIREserviceCbx.Text;
 
-                metaList = clg.searchAll(zoekString, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType);
+                metaList = clg.searchAll(zoekString, themekey, orgName, dataType, siteId, inspiretheme);
 
                 statusMsgLbl.Text = "";
-                descriptionHTML.DocumentText = "";
+                webView.DocumentText = "";
 
                 if (metaList.to != 0)
                 {
                     updateFilter();
-                    statusMsgLbl.Text = String.Format("Aantal records gevonden: {0}", metaList.maxCount);
+                    statusMsgLbl.Text = String.Format("Aantal records gevonden: {0}", metaList.summary.count);
                 }
                 else
                 {
                     MessageBox.Show("Er werd niets gevonden dat voldoet aan deze criteria", "Geen resultaat");
                 }
                 addWMSbtn.Enabled = false;
-                OpenDownloadBtn.Enabled = false;
+                OpenArcgisBtn.Enabled = false;
             }
             catch (WebException wex)
             {
                 if (wex.Status == WebExceptionStatus.Timeout)
                     MessageBox.Show("De connectie werd afgebroken." +
                         " Het duurde te lang voor de server een resultaat terug gaf.\n" +
-                        "U kunt via de instellingen de 'timout'-tijd optrekken.", wex.Message);
+                         "U kunt via de instellingen de 'timout'-tijd optrekken.", wex.Message);
                 else if (wex.Response != null)
                 {
                     string resp = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
@@ -244,7 +229,7 @@ namespace geopunt4Arcgis
         private void updateInfo()
         {
             addWMSbtn.Enabled = false;
-            OpenDownloadBtn.Enabled = false;
+            OpenArcgisBtn.Enabled = false;
 
             string selVal = searchResultsList.Text;
             List<datacontract.metadata> metaObjs = (from n in metaList.metadataRecords
@@ -253,16 +238,48 @@ namespace geopunt4Arcgis
             if (metaObjs.Count > 0)
             {
                 datacontract.metadata metaObj = metaObjs[0];
-                string infoMsg = string.Format("<strong><small>{0}</small></strong><br/><div><small>{1}</small></div>", metaObj.title, metaObj.description);
+                string infoMsg = string.Format("<h2>{0}</h2><br/><div>{1}</div>", metaObj.title, metaObj.description);
                 infoMsg += string.Format(
-                    "<br/><a target='_blank' href='https://metadata.geopunt.be/zoekdienst/apps/tabsearch/index.html?uuid={0}'><small>Ga naar fiche</small></a>",
-                                            metaObj.sourceID);
+                "<div><a target='_blank' href='https://metadata.vlaanderen.be/srv/dut/catalog.search#/metadata/{0}'>Ga naar fiche in metadata center</a></div>",
+                                          metaObj.geonet.uuid   );
+               
+                if (metaObj.links != null && metaObj.links.Count() > 0 )
+                {
+                   infoMsg += "<br/><ul>";
+                   foreach (string link in metaObj.links)
+                   { 
+                      string[] links = link.Split('|');
+                      if ( links[3].ToUpper().Contains("DOWNLOAD") )
+                        infoMsg += string.Format("<li><a target='_blank' href='{1}'>{0}</a></li>", links[0], links[2]);
+                   }
+                   infoMsg += "</ul>";
+                }
+                webView.DocumentText = infoMsg;
 
-                descriptionHTML.DocumentText = infoMsg;
-
-                if (metaList.geturl(selVal, "DOWNLOAD")) OpenDownloadBtn.Enabled = true;
+                if (metaList.geturl(selVal, "Esri Rest API", 0)) OpenArcgisBtn.Enabled = true;
                 if (metaList.geturl(selVal, "OGC:WMS")) addWMSbtn.Enabled = true;
             }
+        }
+
+        private void loadArcgis()
+        {
+           string selVal = searchResultsList.Text;
+           string arcName; 
+           string arcUrl;
+
+           bool hasArc = metaList.geturl(selVal, "Esri Rest API", out arcUrl, out arcName, 0);
+           if (hasArc)
+           {
+              arcUrl = arcUrl.Split('?')[0] + "?";
+              if (geopuntHelper.websiteExists(arcUrl, true) == false)
+              {
+                 MessageBox.Show("Kan geen connectie maken met de Service.", "Connection timed out");
+                 return;
+              }
+              geopuntHelper.addAGS2map(ArcMap.Document.FocusMap, arcUrl, arcName);
+
+           }
+
         }
 
         private void addWMS()
@@ -282,7 +299,6 @@ namespace geopunt4Arcgis
                     MessageBox.Show("Kan geen connectie maken met de Service.", "Connection timed out");
                     return;
                 }
-
                 try
                 {
                     lyrDescripts = geopuntHelper.listWMSlayers(wmsUrl);
@@ -317,5 +333,6 @@ namespace geopunt4Arcgis
             }
         }
         #endregion 
+
     }
 }

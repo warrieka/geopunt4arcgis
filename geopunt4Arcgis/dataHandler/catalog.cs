@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -19,28 +20,16 @@ namespace geopunt4Arcgis.dataHandler
         public WebClient client;
         NameValueCollection qryValues;
 
-        public string geoNetworkUrl = "https://metadata.geopunt.be/zoekdienst/srv/dut";
+        public string geoNetworkUrl = "https://metadata.vlaanderen.be/srv/dut";
         
         public Dictionary<string, string> dataTypes = new Dictionary<string, string>() { 
                    {"Dataset","dataset"}, {"Datasetserie","series"}, 
                    {"Objectencatalogus","model"}, {"Service","service"} };
-        
-        public List<string> inspireServiceTypes = new List<string>() { "", 
-                    "Discovery", "Transformation", "View", "Other", "Invoke" };
-        
-        public List<string> inpireAnnex = new List<string>(){ "", "i","ii","iii"};
+       
 
-        public catalog(string proxyUrl, int port, int timeout)
+        public catalog(string proxyUrl="", int port=80, int timeout=5000)
         {
             this.init(proxyUrl, port, timeout);
-        }
-        public catalog( int timeout )
-        {
-            this.init("", 80, timeout);
-        }
-        public catalog()
-        {
-            this.init("", 80, 5000);
         }
 
         private void init(string proxyUrl, int port, int timeout) {
@@ -51,19 +40,19 @@ namespace geopunt4Arcgis.dataHandler
             else
             {
                 client = new gpWebClient() { Encoding = System.Text.Encoding.UTF8, 
-                                           Proxy = new System.Net.WebProxy(proxyUrl, port), timeout= timeout };
+                            Proxy = new System.Net.WebProxy(proxyUrl, port), timeout= timeout };
             }
             client.Headers["Content-type"] = "application/json";
             qryValues = new NameValueCollection();
         }
-        
-        public List<string> getKeyWords(string q, string field)
+
+        public List<string> getKeyWords(string q="", string field = "anylight")
         {
             qryValues.Add("q", q);
             qryValues.Add("field", field);
             client.QueryString = qryValues;
 
-            string url = geoNetworkUrl + "/main.search.suggest" ;
+            string url = geoNetworkUrl + "/suggest" ;
 
             string jsonString = client.DownloadString(new Uri(url));
             JArray jsonArr = JArray.Parse(jsonString) as JArray;
@@ -73,15 +62,9 @@ namespace geopunt4Arcgis.dataHandler
             client.QueryString.Clear();
             return keywords.Select(c => (string)c).ToList();
         }
-        public List<string> getKeyWords(string q){
-            return getKeyWords(q, "any");
-        }
-        public List<string> getKeyWords(){
-            return getKeyWords("", "any");
-        }
 
         public List<string> getOrganisations() {
-            string url = geoNetworkUrl + @"/main.search.suggest?field=orgName";
+            string url = geoNetworkUrl + @"/suggest?field=orgName";
             string jsonString = client.DownloadString(new Uri(url));
             JArray jsonArr = JArray.Parse(jsonString) as JArray;
             JArray orgs = (JArray)jsonArr[1];
@@ -90,114 +73,73 @@ namespace geopunt4Arcgis.dataHandler
 
         public List<string> inspireKeywords() 
         {
-            List<string> keywords = new List<string>();
-            string url = geoNetworkUrl +
-                @"/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.inspire-theme&pKeyword=*";
-
-            string xmlDoc = client.DownloadString(new Uri(url));
-            XElement element = XElement.Parse(xmlDoc);
-            IEnumerable<XElement> sources = element.Element("descKeys").Elements("keyword");
-            foreach (var item in sources)
-            {
-                string name = item.Element("value").Value;
-                keywords.Add(name);
-            }
-            return keywords;
+           List<string> keywords = new List<string>() ;
+           string url = geoNetworkUrl + "/q?_content_type=xml&fast=index&resultType=details&to=1";
+           string xmlDoc = client.DownloadString(new Uri(url));
+           XElement element = XElement.Parse(xmlDoc);
+           IEnumerable<XElement> dims = element.Element("summary").Elements("dimension");
+           foreach (var dim in dims)
+           {
+              if (dim.Attribute("name").Value == "inspireTheme")
+                 foreach (var cat in dim.Elements("category"))
+                    keywords.Add(cat.Attribute("value").Value);
+           }
+           return keywords;
         }
 
         public Dictionary<string, string> getSources()
         {
             Dictionary<string, string> sourcesDict = new Dictionary<string, string>();
-            string url = geoNetworkUrl + "/xml.info?type=sources";
+            string url = geoNetworkUrl + "/q?_content_type=xml&fast=index&resultType=details&to=1";
 
             string xmlDoc = client.DownloadString(new Uri(url));
             XElement element = XElement.Parse(xmlDoc);
-            IEnumerable<XElement> sources = element.Element("sources").Elements("source");
-            foreach (var item in sources)
+            IEnumerable<XElement> dims = element.Element("summary").Elements("dimension");
+            foreach (var dim in dims)
             {
-                string uuid =  item.Element("uuid").Value;
-                string name = item.Element("name").Value;
-                sourcesDict.Add(name,uuid);
+               if( dim.Attribute("name").Value == "sourceCatalog" ) 
+                  foreach (var cat in dim.Elements("category"))
+                     sourcesDict.Add(cat.Attribute("value").Value, cat.Attribute("label").Value);
             }
             return sourcesDict;
         }
 
-        public List<string> getGDIthemes( string q ) {
-            List<string> GDIthemes = new List<string>();
-            string url = geoNetworkUrl +
-                "/xml.search.keywords?pNewSearch=true&pTypeSearch=1&pThesauri=external.theme.GDI-Vlaanderen-trefwoorden&pKeyword=*" + q + "*";
-            string xmlDoc = client.DownloadString(new Uri(url));
-            XElement element = XElement.Parse(xmlDoc);
-            IEnumerable<XElement> sources = element.Element("descKeys").Elements("keyword");
-            foreach (var item in sources)
-            {
-                string name = item.Element("value").Value;
-                GDIthemes.Add(name);
-            }
-
-            return GDIthemes;
-        }
         public List<string> getGDIthemes() {
-            return getGDIthemes("");
+           string url = geoNetworkUrl + @"/suggest?field=flanderskeyword";
+           string jsonString = client.DownloadString(new Uri(url));
+           JArray jsonArr = JArray.Parse(jsonString) as JArray;
+           JArray GDIthemes = (JArray)jsonArr[1];
+           return GDIthemes.Select(c => (string)c).ToList();
         }
 
-        public datacontract.metadataResponse search(string q, int start, int to, 
-            string themekey, string orgName, string dataType, string siteId, 
-            string inspiretheme, string inspireannex, string inspireServiceType) 
+        public datacontract.metadataResponse search(string q="", int start=1, int to=21,
+           string themekey = "", string orgName = "", string dataType = "", string siteId = "", string inspiretheme = "" ) 
         {
             qryValues.Add("fast", "index");
+            qryValues.Add("_content_type", "json");
             qryValues.Add("sortBy", "changeDate");
-            if (q != "" && q != null) qryValues.Add("any", "*" + q + "*");
+            if (q != "" && q != null) qryValues.Add("any", q );
             qryValues.Add("from", start.ToString());
             qryValues.Add("to", to.ToString());
-            if (themekey != "") qryValues.Add("themekey", ("\"" + themekey + "\"").Replace("&", "%26"));
-            if (orgName != "") qryValues.Add("orgName", "\"" + orgName + "\"" );
-            if (dataType != "") qryValues.Add("type", dataType);
-            if (siteId != "") qryValues.Add("siteId", siteId);
-            if (inspiretheme != "") qryValues.Add("inspiretheme", inspiretheme);
-            if (inspireannex != "") qryValues.Add("inspireannex", inspireannex);
-            if (inspireServiceType != "") qryValues.Add("inspireServiceType", inspireServiceType);
+
+            var facets = new List<string>();
+            if (themekey != "" && themekey != null)         facets.Add("flanderskeyword/" + themekey);
+            if (orgName != "" && orgName != null)           facets.Add("orgName/" + orgName);
+            if (dataType != "" && dataType != null)         facets.Add("type/" + dataType);
+            if (siteId != "" && siteId != null)             facets.Add("sourceCatalog/" + siteId);
+            if (inspiretheme != "" && inspiretheme != null) facets.Add("inspiretheme/" + inspiretheme);
+
+            if (facets.Count() > 0){
+               qryValues.Add("facet.q", HttpUtility.UrlEncode( String.Join("&", facets.ToArray() ) ) );
+            } 
 
             client.QueryString = qryValues;
 
             Uri url = new Uri(geoNetworkUrl + "/q");
 
-            string xmlDoc = client.DownloadString(url);
-            XElement element = XElement.Parse(xmlDoc);
-
-            int maxCount; int from; int xto ;
-            int.TryParse( element.Element("summary").Attribute("count").Value , out maxCount);
-            int.TryParse(element.Attribute("from").Value, out from);
-            int.TryParse(element.Attribute("to").Value, out xto);
-
-            datacontract.metadataResponse metaResp = new datacontract.metadataResponse() 
-                                {from = from, to=xto, maxCount=maxCount };
-            List<datacontract.metadata> metaList = new List<datacontract.metadata>();
-            IEnumerable<XElement> sources = element.Elements("metadata");
-            foreach (var item in sources)
-            {
-                datacontract.metadata meta = new datacontract.metadata();
-                XNamespace ns = "http://www.fao.org/geonetwork";
-
-                var xsource = item.Element(ns + "info");
-                var xtitle = item.Element("title");
-                var xabstract = item.Element("abstract");
-
-                if (xsource == null || xtitle == null) continue;
-
-                meta.sourceID = xsource.Element("uuid").Value;
-                meta.title = xtitle.Value;
-                if (xabstract != null) meta.description = xabstract.Value;
-                else meta.description = "";
-                meta.links = new List<string>();
-                foreach (var elem in item.Elements("link"))
-                {
-                    meta.links.Add(elem.Value);
-                }
-                metaList.Add(meta);
-            }
-            metaResp.metadataRecords = metaList ;
-
+            string json = client.DownloadString(url);
+            var metaResp =  JsonConvert.DeserializeObject<datacontract.metadataResponse>(json);
+            
             qryValues.Clear();
             client.QueryString.Clear();
 
@@ -206,20 +148,18 @@ namespace geopunt4Arcgis.dataHandler
 
         public datacontract.metadataResponse searchAll(string q,
             string themekey, string orgName, string dataType, string siteId,
-            string inspiretheme, string inspireannex, string inspireServiceType) 
+            string inspiretheme) 
         {
-            datacontract.metadataResponse metaResp = search(
-                q, 1, 20, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType);
+            var metaResp1 = this.search(
+                q, 1, 100, themekey, orgName, dataType, siteId, inspiretheme);
 
-            for (int i = 21; i < metaResp.maxCount; i += 20) 
+            for (int i = 101; i < metaResp1.summary.count; i += 100) 
             {
-                datacontract.metadataResponse metaResp2 = search(
-                    q, i, i + 19, themekey, orgName, dataType, siteId, inspiretheme, inspireannex, inspireServiceType);
-
-                metaResp.metadataRecords.AddRange( metaResp2.metadataRecords );
+               var metaResp2 = this.search(q, i, i + 99, themekey, orgName, dataType, siteId, inspiretheme);
+                metaResp1.metadataRecords.AddRange( metaResp2.metadataRecords );
             }
-            metaResp.to = metaResp.maxCount;
-            return metaResp;
+            metaResp1.to = metaResp1.summary.count;
+            return metaResp1;
         }
     }
 }

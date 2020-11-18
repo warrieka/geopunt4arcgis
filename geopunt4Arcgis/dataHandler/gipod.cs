@@ -79,7 +79,7 @@ namespace geopunt4Arcgis.dataHandler
             Uri gipodUri = new Uri(GipodBaseUrl + "/manifestation");
             string json = client.DownloadString(gipodUri);
 
-            List<datacontract.gipodResponse> gipodRespons = JsonConvert.DeserializeObject<List<datacontract.gipodResponse>>(json);
+            var gipodRespons = JsonConvert.DeserializeObject<List<datacontract.gipodResponse>>(json);
             
             client.QueryString.Clear();
             return gipodRespons;
@@ -115,7 +115,7 @@ namespace geopunt4Arcgis.dataHandler
             Uri gipodUri = new Uri(GipodBaseUrl + "/workassignment");
             string json = client.DownloadString(gipodUri);
 
-            List<datacontract.gipodResponse> gipodRespons = JsonConvert.DeserializeObject<List<datacontract.gipodResponse>>(json);
+            var gipodRespons = JsonConvert.DeserializeObject<List<datacontract.gipodResponse>>(json);
 
             client.QueryString.Clear();
             return gipodRespons;
