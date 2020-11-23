@@ -68,6 +68,8 @@ namespace geopunt4Arcgis.datacontract
 
                wmsLayer = linkList[0];
                wmsUrl = linkList[2];
+               if (wmsLayer.Trim() == "") wmsLayer = wmsUrl;
+
                if (linkList[field_idx].ToUpper().Contains(stype.ToUpper())) return true;
             }
             return false;
