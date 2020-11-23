@@ -188,6 +188,10 @@ namespace geopunt4Arcgis
 
         private void search()
         {
+            searchResultsList.Items.Clear();
+            statusMsgLbl.Text = "";
+            webView.DocumentText = "";
+
             try
             {
                 string zoekString = keywordTxt.Text;
@@ -198,9 +202,6 @@ namespace geopunt4Arcgis
                 string inspiretheme = INSPIREthemeCbx.Text;
 
                 metaList = clg.searchAll(zoekString, themekey, orgName, dataType, "", inspiretheme);
-
-                statusMsgLbl.Text = "";
-                webView.DocumentText = "";
 
                 if (metaList.to != 0)
                 {
@@ -257,8 +258,12 @@ namespace geopunt4Arcgis
                    foreach (string link in metaObj.links)
                    { 
                       string[] links = link.Split('|');
-                      if ( links[3].ToUpper().Contains("DOWNLOAD") )
-                        infoMsg += string.Format("<li><a target='_blank' href='{1}'>{0}</a></li>", links[0], links[2]);
+                      if (links[3].ToUpper().Contains("DOWNLOAD"))
+                      {
+                         string url = links[2];
+                         string name = (String.IsNullOrEmpty(links[0])) ? links[1] : links[0];
+                         infoMsg += string.Format("<li><a target='_blank' href='{1}'>{0}</a></li>", name, url);
+                      }     
                    }
                    infoMsg += "</ul>";
                 }
