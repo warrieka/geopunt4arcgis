@@ -12,19 +12,19 @@ namespace geopunt4Arcgis
 
         public gpWebClient(Uri uri, int millisecTimeOut) 
         {
-           ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xc00;
             var objWebClient = GetWebRequest(uri);
             timeout = millisecTimeOut;
         }
         public gpWebClient(Uri uri)
         {
-           ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xc00;
             var objWebClient = GetWebRequest(uri);
             timeout = 5000;
         }
         public gpWebClient()
         {
-           ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)0xc00;
             timeout = 5000;
         }
 

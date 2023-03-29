@@ -1,90 +1,81 @@
 REM deps: http://www.imagemagick.org and https://inkscape.org
 
 REM add to path
-set PATH=%PATH%;C:\Program Files\Inkscape\;C:\Program Files\ImageMagick-6.9.0-Q16
+set PATH=%PATH%;C:\Program Files\Inkscape\bin;D:\bin\ImageMagick
 
 REM EMF uncomment if you want this
-REM inkscape -z -f geopuntAddress.svg -M  geopuntAddress.emf
-REM inkscape -z -f geopuntCatalog.svg -M  geopuntCatalog.emf
-REM inkscape -z -f geopuntPerceel.svg -M  geopuntPerceel.emf
-REM inkscape -z -f geopuntBatch.svg -M    geopuntBatch.emf
-REM inkscape -z -f geopuntElevation.svg -M geopuntElevation.emf
-REM inkscape -z -f geopuntGipod.svg -M    geopuntGipod.emf
-REM inkscape -z -f geopuntPoi.svg -M      geopuntPoi.emf
-REM inkscape -z -f geopuntReverse.svg -M  geopuntReverse.emf
-REM inkscape -z -f geopuntSetting.svg -M  geopuntSetting.emf
+set catalog=svg\Catalogus.svg
+set batch=svg\Bestand.svg
+set adres=svg\Adres.svg
+set setting=svg\Settings.svg
+set poi=svg\POI.svg
+set place=svg\Place.svg
+set parcel=svg\Perceel.svg
+set info=svg\Info.svg
+set hoogte=svg\Hoogte.svg
+set gipod=svg\Gipod.svg
 
 REM png's
-inkscape -z -f geopuntAddress.svg -w 16 -h 16 -e geopuntAddress16x16.png
-inkscape -z -f geopuntCatalog.svg -w 16 -h 16 -e geopuntCatalog16x16.png
-inkscape -z -f geopuntPerceel.svg -w 16 -h 16 -e geopuntPerceel16x16.png
-inkscape -z -f geopuntBatch.svg -w 16 -h 16 -e geopuntBatch16x16.png
-inkscape -z -f geopuntElevation.svg -w 16 -h 16 -e geopuntElevation16x16.png
-inkscape -z -f geopuntGipod.svg -w 16 -h 16 -e geopuntGipod16x16.png
-inkscape -z -f geopuntPoi.svg -w 16 -h 16 -e geopuntPoi16x16.png
-inkscape -z -f geopuntReverse.svg -w 16 -h 16 -e geopuntReverse16x16.png
-inkscape -z -f geopuntSetting.svg -w 16 -h 16 -e geopuntSetting16x16.png
+inkscape %adres%   -w 16 -h 16 -o geopuntAddress16x16.png
+inkscape %catalog% -w 16 -h 16 -o geopuntCatalog16x16.png
+inkscape %parcel%  -w 16 -h 16 -o geopuntPerceel16x16.png
+inkscape %batch%   -w 16 -h 16 -o geopuntBatch16x16.png
+inkscape %hoogte%  -w 16 -h 16 -o geopuntElevation16x16.png
+inkscape %gipod%   -w 16 -h 16 -o geopuntGipod16x16.png
+inkscape %poi%     -w 16 -h 16 -o geopuntPoi16x16.png
+inkscape %place%   -w 16 -h 16 -o geopuntReverse16x16.png
+inkscape %setting% -w 16 -h 16 -o geopuntSetting16x16.png
 
-inkscape -z -f geopuntAddress.svg -w 24 -h 24 -e geopuntAddress24x24.png
-inkscape -z -f geopuntCatalog.svg -w 24 -h 24 -e geopuntCatalog24x24.png
-inkscape -z -f geopuntPerceel.svg -w 24 -h 24 -e geopuntPerceel24x24.png
-inkscape -z -f geopuntBatch.svg -w 24 -h 24 -e geopuntBatch24x24.png
-inkscape -z -f geopuntElevation.svg -w 24 -h 24 -e geopuntElevation24x24.png
-inkscape -z -f geopuntGipod.svg -w 24 -h 24 -e geopuntGipod24x24.png
-inkscape -z -f geopuntPoi.svg -w 24 -h 24 -e geopuntPoi24x24.png
-inkscape -z -f geopuntReverse.svg -w 24 -h 24 -e geopuntReverse24x24.png
-inkscape -z -f geopuntSetting.svg -w 24 -h 24 -e geopuntSetting24x24.png
+inkscape %adres%   -w 24 -h 24 -o geopuntAddress24x24.png
+inkscape %catalog% -w 24 -h 24 -o geopuntCatalog24x24.png
+inkscape %parcel%  -w 24 -h 24 -o geopuntPerceel24x24.png
+inkscape %batch%   -w 24 -h 24 -o geopuntBatch24x24.png
+inkscape %hoogte%  -w 24 -h 24 -o geopuntElevation24x24.png
+inkscape %gipod%   -w 24 -h 24 -o geopuntGipod24x24.png
+inkscape %poi%     -w 24 -h 24 -o geopuntPoi24x24.png
+inkscape %place%   -w 24 -h 24 -o geopuntReverse24x24.png
+inkscape %setting% -w 24 -h 24 -o geopuntSetting24x24.png
 
-inkscape -z -f geopuntAddress.svg -w 32 -h 32 -e geopuntAddress32x32.png
-inkscape -z -f geopuntCatalog.svg -w 32 -h 32 -e geopuntCatalog32x32.png
-inkscape -z -f geopuntPerceel.svg -w 32 -h 32 -e geopuntPerceel32x32.png
-inkscape -z -f geopuntBatch.svg -w 32 -h 32 -e geopuntBatch32x32.png
-inkscape -z -f geopuntElevation.svg -w 32 -h 32 -e geopuntElevation32x32.png
-inkscape -z -f geopuntGipod.svg -w 32 -h 32 -e geopuntGipod32x32.png
-inkscape -z -f geopuntPoi.svg -w 32 -h 32 -e geopuntPoi32x32.png
-inkscape -z -f geopuntReverse.svg -w 32 -h 32 -e geopuntReverse32x32.png
-inkscape -z -f geopuntSetting.svg -w 32 -h 32 -e geopuntSetting32x32.png
+inkscape %adres%   -w 32 -h 32 -o geopuntAddress32x32.png
+inkscape %catalog% -w 32 -h 32 -o geopuntCatalog32x32.png
+inkscape %parcel%  -w 32 -h 32 -o geopuntPerceel32x32.png
+inkscape %batch%   -w 32 -h 32 -o geopuntBatch32x32.png
+inkscape %hoogte%  -w 32 -h 32 -o geopuntElevation32x32.png
+inkscape %gipod%   -w 32 -h 32 -o geopuntGipod32x32.png
+inkscape %poi%     -w 32 -h 32 -o geopuntPoi32x32.png
+inkscape %place%   -w 32 -h 32 -o geopuntReverse32x32.png
+inkscape %setting% -w 32 -h 32 -o geopuntSetting32x32.png
 
-inkscape -z -f geopuntAddress.svg -w 48 -h 48 -e geopuntAddress48x48.png
-inkscape -z -f geopuntCatalog.svg -w 48 -h 48 -e geopuntCatalog48x48.png
-inkscape -z -f geopuntPerceel.svg -w 48 -h 48 -e geopuntPerceel48x48.png
-inkscape -z -f geopuntBatch.svg -w 48 -h 48 -e geopuntBatch48x48.png
-inkscape -z -f geopuntElevation.svg -w 48 -h 48 -e geopuntElevation48x48.png
-inkscape -z -f geopuntGipod.svg -w 48 -h 48 -e geopuntGipod48x48.png
-inkscape -z -f geopuntPoi.svg -w 48 -h 48 -e geopuntPoi48x48.png
-inkscape -z -f geopuntReverse.svg -w 48 -h 48 -e geopuntReverse48x48.png
-inkscape -z -f geopuntSetting.svg -w 48 -h 48 -e geopuntSetting48x48.png
+inkscape %adres%   -w 48 -h 48 -o geopuntAddress48x48.png
+inkscape %catalog% -w 48 -h 48 -o geopuntCatalog48x48.png
+inkscape %parcel%  -w 48 -h 48 -o geopuntPerceel48x48.png
+inkscape %batch%   -w 48 -h 48 -o geopuntBatch48x48.png
+inkscape %hoogte%  -w 48 -h 48 -o geopuntElevation48x48.png
+inkscape %gipod%   -w 48 -h 48 -o geopuntGipod48x48.png
+inkscape %poi%     -w 48 -h 48 -o geopuntPoi48x48.png
+inkscape %place%   -w 48 -h 48 -o geopuntReverse48x48.png
+inkscape %setting% -w 48 -h 48 -o geopuntSetting48x48.png
 
-inkscape -z -f geopuntAddress.svg -w 256 -h 256 -e geopuntAddress256x256.png
-inkscape -z -f geopuntCatalog.svg -w 256 -h 256 -e geopuntCatalog256x256.png
-inkscape -z -f geopuntPerceel.svg -w 256 -h 256 -e geopuntPerceel256x256.png
-inkscape -z -f geopuntBatch.svg -w 256 -h 256 -e geopuntBatch256x256.png
-inkscape -z -f geopuntElevation.svg -w 256 -h 256 -e geopuntElevation256x256.png
-inkscape -z -f geopuntGipod.svg -w 256 -h 256 -e geopuntGipod256x256.png
-inkscape -z -f geopuntPoi.svg -w 256 -h 256 -e geopuntPoi256x256.png
-inkscape -z -f geopuntReverse.svg -w 256 -h 256 -e geopuntReverse256x256.png
-inkscape -z -f geopuntSetting.svg -w 256 -h 256 -e geopuntSetting256x256.png
+inkscape %adres%   -w 256 -h 256 -o geopuntAddress256x256.png
+inkscape %catalog% -w 256 -h 256 -o geopuntCatalog256x256.png
+inkscape %parcel%  -w 256 -h 256 -o geopuntPerceel256x256.png
+inkscape %batch%   -w 256 -h 256 -o geopuntBatch256x256.png
+inkscape %hoogte%  -w 256 -h 256 -o geopuntElevation256x256.png
+inkscape %gipod%   -w 256 -h 256 -o geopuntGipod256x256.png
+inkscape %poi%     -w 256 -h 256 -o geopuntPoi256x256.png
+inkscape %place%   -w 256 -h 256 -o geopuntReverse256x256.png
+inkscape %setting% -w 256 -h 256 -o geopuntSetting256x256.png
 
 REM icon's for forms
-REM convert -background none geopuntAddress16x16.png geopuntAddress24x24.png geopuntAddress32x32.png geopuntAddress48x48.png geopuntAddress256x256.png geopuntAddress.ico
-REM convert -background none geopuntCatalog16x16.png geopuntCatalog24x24.png geopuntCatalog32x32.png geopuntCatalog48x48.png geopuntCatalog256x256.png geopuntCatalog.ico
-REM convert -background none geopuntPerceel16x16.png geopuntPerceel24x24.png geopuntPerceel32x32.png geopuntPerceel48x48.png geopuntPerceel256x256.png geopuntPerceel.ico
-REM convert -background none geopuntBatch16x16.png geopuntBatch24x24.png geopuntBatch32x32.png geopuntBatch48x48.png geopuntBatch256x256.png geopuntBatch.ico
-REM convert -background none geopuntElevation16x16.png geopuntElevation24x24.png geopuntElevation32x32.png geopuntElevation48x48.png geopuntElevation256x256.png geopuntElevation.ico
-REM convert -background none geopuntGipod16x16.png geopuntGipod24x24.png geopuntGipod32x32.png geopuntGipod48x48.png geopuntGipod256x256.png geopuntGipod.ico
-REM convert -background none geopuntPoi16x16.png geopuntPoi24x24.png geopuntPoi32x32.png geopuntPoi48x48.png geopuntPoi256x256.png geopuntPoi.ico
-REM convert -background none geopuntReverse16x16.png geopuntReverse24x24.png geopuntReverse32x32.png geopuntReverse48x48.png geopuntReverse256x256.png geopuntReverse.ico
-REM convert -background none geopuntSetting16x16.png geopuntSetting24x24.png geopuntSetting32x32.png geopuntSetting48x48.png geopuntSetting256x256.png geopuntSetting.ico
-
-convert -background none geopuntAddress32x32.png geopuntAddress48x48.png geopuntAddress256x256.png geopuntAddress.ico
-convert -background none geopuntCatalog32x32.png geopuntCatalog48x48.png geopuntCatalog256x256.png geopuntCatalog.ico
-convert -background none geopuntPerceel32x32.png geopuntPerceel48x48.png geopuntPerceel256x256.png geopuntPerceel.ico
-convert -background none geopuntBatch32x32.png geopuntBatch48x48.png geopuntBatch256x256.png geopuntBatch.ico
-convert -background none geopuntElevation32x32.png geopuntElevation48x48.png geopuntElevation256x256.png geopuntElevation.ico
-convert -background none geopuntGipod32x32.png geopuntGipod48x48.png geopuntGipod256x256.png geopuntGipod.ico
-convert -background none geopuntPoi32x32.png geopuntPoi48x48.png geopuntPoi256x256.png geopuntPoi.ico
-convert -background none geopuntReverse32x32.png geopuntReverse48x48.png geopuntReverse256x256.png geopuntReverse.ico
-convert -background none geopuntSetting32x32.png geopuntSetting48x48.png geopuntSetting256x256.png geopuntSetting.ico
+magick convert -background none geopuntAddress32x32.png geopuntAddress48x48.png geopuntAddress256x256.png geopuntAddress.ico
+magick convert -background none geopuntCatalog32x32.png geopuntCatalog48x48.png geopuntCatalog256x256.png geopuntCatalog.ico
+magick convert -background none geopuntPerceel32x32.png geopuntPerceel48x48.png geopuntPerceel256x256.png geopuntPerceel.ico
+magick convert -background none geopuntBatch32x32.png geopuntBatch48x48.png geopuntBatch256x256.png geopuntBatch.ico
+magick convert -background none geopuntElevation32x32.png geopuntElevation48x48.png geopuntElevation256x256.png geopuntElevation.ico
+magick convert -background none geopuntGipod32x32.png geopuntGipod48x48.png geopuntGipod256x256.png geopuntGipod.ico
+magick convert -background none geopuntPoi32x32.png geopuntPoi48x48.png geopuntPoi256x256.png geopuntPoi.ico
+magick convert -background none geopuntReverse32x32.png geopuntReverse48x48.png geopuntReverse256x256.png geopuntReverse.ico
+magick convert -background none geopuntSetting32x32.png geopuntSetting48x48.png geopuntSetting256x256.png geopuntSetting.ico
 
 REM copy to manual
 copy /Y geopuntAddress24x24.png ..\man\geopuntAddressCmd.png

@@ -236,6 +236,5 @@ pip-log.txt
 #Translations
 *.mo
 
-#Mr Developer
-.mr.developer.cfg
-*.webm
+
+.vs/

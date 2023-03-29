@@ -61,9 +61,9 @@
             this.resultGrid.AllowUserToAddRows = false;
             this.resultGrid.AllowUserToDeleteRows = false;
             this.resultGrid.AllowUserToOrderColumns = true;
-            this.resultGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.resultGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.resultGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.resultGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.resultGrid.Location = new System.Drawing.Point(12, 224);
@@ -89,8 +89,8 @@
             // 
             // themeCbx
             // 
-            this.themeCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.themeCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.themeCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.themeCbx.FormattingEnabled = true;
             this.themeCbx.Location = new System.Drawing.Point(87, 67);
@@ -101,8 +101,8 @@
             // 
             // categoryCbx
             // 
-            this.categoryCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.categoryCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.categoryCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.categoryCbx.FormattingEnabled = true;
             this.categoryCbx.Location = new System.Drawing.Point(87, 94);
@@ -113,8 +113,8 @@
             // 
             // typeCbx
             // 
-            this.typeCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.typeCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.typeCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeCbx.FormattingEnabled = true;
             this.typeCbx.Location = new System.Drawing.Point(87, 121);
@@ -124,8 +124,8 @@
             // 
             // gemeenteCbx
             // 
-            this.gemeenteCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.gemeenteCbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gemeenteCbx.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.gemeenteCbx.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.gemeenteCbx.FormattingEnabled = true;
@@ -175,7 +175,7 @@
             this.extentCkb.AutoSize = true;
             this.extentCkb.Location = new System.Drawing.Point(13, 17);
             this.extentCkb.Name = "extentCkb";
-            this.extentCkb.Size = new System.Drawing.Size(183, 14);
+            this.extentCkb.Size = new System.Drawing.Size(244, 17);
             this.extentCkb.TabIndex = 10;
             this.extentCkb.Text = "Beperk zoekresultaten tot huidige zoomniveau";
             this.extentCkb.UseVisualStyleBackColor = true;
@@ -183,8 +183,8 @@
             // 
             // keywordTxt
             // 
-            this.keywordTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.keywordTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.keywordTxt.Location = new System.Drawing.Point(87, 148);
             this.keywordTxt.Name = "keywordTxt";
             this.keywordTxt.Size = new System.Drawing.Size(344, 20);
@@ -257,26 +257,26 @@
             // 
             // msgLbl
             // 
-            this.msgLbl.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.msgLbl.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.msgLbl.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.msgLbl.Name = "msgLbl";
-            this.msgLbl.Size = new System.Drawing.Size(418, 17);
+            this.msgLbl.Size = new System.Drawing.Size(414, 17);
             this.msgLbl.Spring = true;
             // 
             // helpLbl
             // 
             this.helpLbl.IsLink = true;
             this.helpLbl.Name = "helpLbl";
-            this.helpLbl.Size = new System.Drawing.Size(28, 17);
+            this.helpLbl.Size = new System.Drawing.Size(32, 17);
             this.helpLbl.Text = "Help";
             this.helpLbl.Click += new System.EventHandler(this.helpLbl_Click);
             // 
             // filterbox
             // 
-            this.filterbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.filterbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.filterbox.Controls.Add(this.gemeenteCbx);
             this.filterbox.Controls.Add(this.GemeenteLbl);
             this.filterbox.Controls.Add(this.themeCbx);
@@ -302,7 +302,7 @@
             this.clusteringChk.Checked = true;
             this.clusteringChk.CheckState = System.Windows.Forms.CheckState.Checked;
             this.clusteringChk.Location = new System.Drawing.Point(139, 439);
-            this.clusteringChk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clusteringChk.Margin = new System.Windows.Forms.Padding(2);
             this.clusteringChk.Name = "clusteringChk";
             this.clusteringChk.Size = new System.Drawing.Size(183, 17);
             this.clusteringChk.TabIndex = 19;

@@ -57,8 +57,8 @@
             // 
             // zoekText
             // 
-            this.zoekText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.zoekText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.zoekText.Location = new System.Drawing.Point(139, 30);
             this.zoekText.Name = "zoekText";
             this.zoekText.Size = new System.Drawing.Size(256, 20);
@@ -67,9 +67,9 @@
             // 
             // suggestionList
             // 
-            this.suggestionList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.suggestionList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.suggestionList.FormattingEnabled = true;
             this.suggestionList.Location = new System.Drawing.Point(12, 56);
             this.suggestionList.Name = "suggestionList";
@@ -102,12 +102,12 @@
             // infoLabel
             // 
             this.infoLabel.ActiveLinkColor = System.Drawing.Color.Black;
-            this.infoLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.infoLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.infoLabel.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(363, 17);
+            this.infoLabel.Size = new System.Drawing.Size(359, 17);
             this.infoLabel.Spring = true;
             this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -115,7 +115,7 @@
             // 
             this.helpLbl.IsLink = true;
             this.helpLbl.Name = "helpLbl";
-            this.helpLbl.Size = new System.Drawing.Size(28, 17);
+            this.helpLbl.Size = new System.Drawing.Size(32, 17);
             this.helpLbl.Text = "Help";
             this.helpLbl.Click += new System.EventHandler(this.helpLbl_Click);
             // 
