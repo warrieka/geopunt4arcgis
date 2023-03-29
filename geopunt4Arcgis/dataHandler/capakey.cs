@@ -41,12 +41,12 @@ namespace geopunt4Arcgis.dataHandler
             }
             client.Headers["Content-type"] = "application/json";
             qryValues = new NameValueCollection();
-            baseUri = "http://geoservices.informatievlaanderen.be/capakey/api/v1/";
+            baseUri = "https://geo.api.vlaanderen.be/capakey/v2";
         }
 
         public datacontract.municipalityList getMunicipalities()
         {
-            Uri capkeyUri = new Uri(baseUri + "Municipality/");
+            Uri capkeyUri = new Uri(baseUri + "/Municipality/");
             string json = client.DownloadString(capkeyUri);
             datacontract.municipalityList response = JsonConvert.DeserializeObject<datacontract.municipalityList>(json);
             return response;
@@ -59,7 +59,7 @@ namespace geopunt4Arcgis.dataHandler
             else if (geomType == capakeyGeometryType.full) qryValues.Add("geometry", "full");
 
             client.QueryString = qryValues;
-            Uri gipodUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() );
+            Uri gipodUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() );
             string json = client.DownloadString(gipodUri);
             datacontract.municipality response = JsonConvert.DeserializeObject<datacontract.municipality>(json);
 
@@ -69,7 +69,7 @@ namespace geopunt4Arcgis.dataHandler
 
         public datacontract.departmentList getDepartments(int NIScode) 
         {
-            Uri capkeyUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() + "/department");
+            Uri capkeyUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() + "/department");
             string json = client.DownloadString(capkeyUri);
             datacontract.departmentList response = JsonConvert.DeserializeObject<datacontract.departmentList>(json);
             return response;
@@ -82,7 +82,7 @@ namespace geopunt4Arcgis.dataHandler
             else if (geomType == capakeyGeometryType.full) qryValues.Add("geometry", "full");
 
             client.QueryString = qryValues;
-            Uri gipodUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString());
+            Uri gipodUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString());
             string json = client.DownloadString(gipodUri);
             datacontract.department response = JsonConvert.DeserializeObject<datacontract.department>(json);
 
@@ -92,7 +92,7 @@ namespace geopunt4Arcgis.dataHandler
 
         public datacontract.sectionList getSecties(int NIScode, int departmentCode)
         {
-            Uri capkeyUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section");
+            Uri capkeyUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section");
             string json = client.DownloadString(capkeyUri);
             datacontract.sectionList response = JsonConvert.DeserializeObject<datacontract.sectionList>(json);
             return response;
@@ -106,7 +106,7 @@ namespace geopunt4Arcgis.dataHandler
 
             client.QueryString = qryValues;
 
-            Uri capkeyUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section/" + sectie);
+            Uri capkeyUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section/" + sectie);
             string json = client.DownloadString(capkeyUri);
             datacontract.section response = JsonConvert.DeserializeObject<datacontract.section>(json);
 
@@ -116,7 +116,7 @@ namespace geopunt4Arcgis.dataHandler
 
         public datacontract.parcelList getParcels(int NIScode, int departmentCode, string sectie)
         {
-            Uri capkeyUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section/" + sectie + "/parcel");
+            Uri capkeyUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section/" + sectie + "/parcel");
             string json = client.DownloadString(capkeyUri);
             datacontract.parcelList response = JsonConvert.DeserializeObject<datacontract.parcelList>(json);
             return response;
@@ -129,7 +129,7 @@ namespace geopunt4Arcgis.dataHandler
             else if (geomType == capakeyGeometryType.full) qryValues.Add("geometry", "full");
 
             client.QueryString = qryValues;
-            Uri gipodUri = new Uri(baseUri + "Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section/" + sectie + "/parcel/"+ perceelsNr);
+            Uri gipodUri = new Uri(baseUri + "/Municipality/" + NIScode.ToString() + "/department/" + departmentCode.ToString() + "/section/" + sectie + "/parcel/"+ perceelsNr);
             string json = client.DownloadString(gipodUri);
             datacontract.parcel response = JsonConvert.DeserializeObject<datacontract.parcel>(json);
 

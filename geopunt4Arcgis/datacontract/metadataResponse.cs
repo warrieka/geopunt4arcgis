@@ -55,7 +55,7 @@ namespace geopunt4Arcgis.datacontract
         {
             wmsUrl = wmsLayer = null;
 
-            if (metadataRecords == null | metadataRecords.Count == 0) return false;
+            if (searchText == null | stype == null | metadataRecords == null | metadataRecords.Count == 0) return false;
 
             var metaObj = metadataRecords.FirstOrDefault(n => n.title == searchText);
 

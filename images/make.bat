@@ -25,6 +25,7 @@ inkscape %gipod%   -w 16 -h 16 -o geopuntGipod16x16.png
 inkscape %poi%     -w 16 -h 16 -o geopuntPoi16x16.png
 inkscape %place%   -w 16 -h 16 -o geopuntReverse16x16.png
 inkscape %setting% -w 16 -h 16 -o geopuntSetting16x16.png
+inkscape %info%    -w 16 -h 16 -o geopuntAbout16x16.png
 
 inkscape %adres%   -w 24 -h 24 -o geopuntAddress24x24.png
 inkscape %catalog% -w 24 -h 24 -o geopuntCatalog24x24.png
@@ -35,6 +36,7 @@ inkscape %gipod%   -w 24 -h 24 -o geopuntGipod24x24.png
 inkscape %poi%     -w 24 -h 24 -o geopuntPoi24x24.png
 inkscape %place%   -w 24 -h 24 -o geopuntReverse24x24.png
 inkscape %setting% -w 24 -h 24 -o geopuntSetting24x24.png
+inkscape %info%    -w 24 -h 24 -o geopuntAbout24x24.png
 
 inkscape %adres%   -w 32 -h 32 -o geopuntAddress32x32.png
 inkscape %catalog% -w 32 -h 32 -o geopuntCatalog32x32.png
@@ -45,6 +47,7 @@ inkscape %gipod%   -w 32 -h 32 -o geopuntGipod32x32.png
 inkscape %poi%     -w 32 -h 32 -o geopuntPoi32x32.png
 inkscape %place%   -w 32 -h 32 -o geopuntReverse32x32.png
 inkscape %setting% -w 32 -h 32 -o geopuntSetting32x32.png
+inkscape %info%    -w 32 -h 32 -o geopuntAbout32x32.png
 
 inkscape %adres%   -w 48 -h 48 -o geopuntAddress48x48.png
 inkscape %catalog% -w 48 -h 48 -o geopuntCatalog48x48.png
@@ -55,6 +58,7 @@ inkscape %gipod%   -w 48 -h 48 -o geopuntGipod48x48.png
 inkscape %poi%     -w 48 -h 48 -o geopuntPoi48x48.png
 inkscape %place%   -w 48 -h 48 -o geopuntReverse48x48.png
 inkscape %setting% -w 48 -h 48 -o geopuntSetting48x48.png
+inkscape %info%    -w 48 -h 48 -o geopuntAbout48x48.png
 
 inkscape %adres%   -w 256 -h 256 -o geopuntAddress256x256.png
 inkscape %catalog% -w 256 -h 256 -o geopuntCatalog256x256.png
@@ -65,6 +69,7 @@ inkscape %gipod%   -w 256 -h 256 -o geopuntGipod256x256.png
 inkscape %poi%     -w 256 -h 256 -o geopuntPoi256x256.png
 inkscape %place%   -w 256 -h 256 -o geopuntReverse256x256.png
 inkscape %setting% -w 256 -h 256 -o geopuntSetting256x256.png
+inkscape %info%    -w 256 -h 256 -o geopuntAbout256x256.png
 
 REM icon's for forms
 magick convert -background none geopuntAddress32x32.png geopuntAddress48x48.png geopuntAddress256x256.png geopuntAddress.ico
@@ -76,6 +81,7 @@ magick convert -background none geopuntGipod32x32.png geopuntGipod48x48.png geop
 magick convert -background none geopuntPoi32x32.png geopuntPoi48x48.png geopuntPoi256x256.png geopuntPoi.ico
 magick convert -background none geopuntReverse32x32.png geopuntReverse48x48.png geopuntReverse256x256.png geopuntReverse.ico
 magick convert -background none geopuntSetting32x32.png geopuntSetting48x48.png geopuntSetting256x256.png geopuntSetting.ico
+magick convert -background none geopuntAbout32x32.png geopuntAbout48x48.png geopuntAbout256x256.png  geopuntAbout.ico
 
 REM copy to manual
 copy /Y geopuntAddress24x24.png ..\man\geopuntAddressCmd.png
@@ -87,6 +93,7 @@ copy /Y geopuntGipod24x24.png ..\man\geopuntGipodCmd.png
 copy /Y geopuntPoi24x24.png ..\man\geopuntPoiCmd.png
 copy /Y geopuntReverse24x24.png ..\man\geopuntReverseCmd.png
 copy /Y geopuntSetting24x24.png ..\man\geopuntSettingCmd.png
+copy /Y geopuntAbout24x24.png ..\man\geopuntAboutCmd.png
 
 REM copy to addincontent
 copy /Y geopuntAddress32x32.png ..\geopunt4arcgis\Images\geopuntAddressCmd.png
@@ -98,3 +105,4 @@ copy /Y geopuntGipod32x32.png ..\geopunt4arcgis\Images\geopuntGipodCmd.png
 copy /Y geopuntPoi32x32.png ..\geopunt4arcgis\Images\geopuntPoiCmd.png
 copy /Y geopuntReverse32x32.png ..\geopunt4arcgis\Images\geopuntReverseCmd.png
 copy /Y geopuntSetting32x32.png ..\geopunt4arcgis\Images\geopuntSettingCmd.png
+copy /Y geopuntAbout32x32.png ..\geopunt4arcgis\Images\geopuntAboutCmd.png

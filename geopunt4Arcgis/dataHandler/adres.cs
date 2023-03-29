@@ -13,7 +13,7 @@ namespace geopunt4Arcgis.dataHandler
     {
         public delegate void adresSuggestionDelegate(object sender, DownloadStringCompletedEventArgs e);
         public WebClient client;
-        string crabBaseUrl = "http://loc.api.geopunt.be/v4";
+        string crabBaseUrl = "https://geo.api.vlaanderen.be/geolocation/v4";
 
         public adresSuggestion( adresSuggestionDelegate callback, string proxyUrl, int port, int timeout)
         {
@@ -92,7 +92,7 @@ namespace geopunt4Arcgis.dataHandler
     {
         public delegate void adresLocationDelegate(object sender, DownloadStringCompletedEventArgs e);
         public WebClient client;
-        string crabBaseUrl = "http://loc.api.geopunt.be/v4";
+        string crabBaseUrl = "https://geo.api.vlaanderen.be/geolocation/v4";
 
         public adresLocation(adresLocationDelegate callback, string proxyUrl, int port, int timeout)
         {

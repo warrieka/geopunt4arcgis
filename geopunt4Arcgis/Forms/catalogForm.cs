@@ -131,59 +131,80 @@ namespace geopunt4Arcgis
 
         private void updateFilter()
         {
+            List<string> terms;
             string filterTxt = filterResultsCbx.Text;
             switch (filterTxt)
             {
                 case "Alles weergeven":
                     searchResultsList.Items.Clear();
-                    searchResultsList.Items.AddRange(geenFilter());
+                    terms = geenFilter();
+                    if (terms != null)
+                    {
+                        terms.RemoveAll(e => e == null);
+                        searchResultsList.Items.AddRange(terms.ToArray());
+                    }
                     break;
                 case "WMS":
                     searchResultsList.Items.Clear();
-                    searchResultsList.Items.AddRange(filterWMS());
+                    terms = filterWMS();
+                    if (terms != null)
+                    {
+                        terms.RemoveAll(e => e == null);
+                        searchResultsList.Items.AddRange(terms.ToArray());
+                    }
                     break;
                 case "Arcgis service":
                     searchResultsList.Items.Clear();
-                    searchResultsList.Items.AddRange(filterAGS());
+                    terms = filterAGS();
+                    if (terms != null)
+                    {
+                        terms.RemoveAll(e => e == null);
+                        searchResultsList.Items.AddRange(terms.ToArray());
+                    }
                     break;
                 case "Download":
                     searchResultsList.Items.Clear();
-                    searchResultsList.Items.AddRange(filterDL());
+                    terms = filterDL();
+                    if (terms != null)
+                    {
+                        terms.RemoveAll(e => e == null);
+                        searchResultsList.Items.AddRange(terms.ToArray());
+                    }
                     break;
                 default:
                     break;
             }
         }
-        
-        private string[] filterDL()
+
+        private List<string> filterDL()
         {
-            if (metaList == null) return new string[0];
+            if (metaList == null) return null;
             return (from g in metaList.metadataRecords
                     where metaList.geturl(g.title, "DOWNLOAD")
-                    select g.title).ToArray();
+                    select g.title).ToList<string>();
         }
-        
-        private string[] filterWMS()
+
+        private List<string> filterWMS()
         {
-            if (metaList == null) return new string[0];
+            if (metaList == null) return null;
             return (from g in metaList.metadataRecords
                     where metaList.geturl(g.title, "OGC:WMS")
-                    select g.title).ToArray();
+                    select g.title).ToList<string>();
         }
 
-        private string[] filterAGS()
+        private List<string> filterAGS()
         {
-           if (metaList == null) return new string[0];
+           if (metaList == null) return null;
            return (from g in metaList.metadataRecords
                    where  metaList.geturl(g.title, "Esri Rest API", 0)
-                   select g.title).ToArray();
+                   select g.title).ToList<string>();
         }
 
-        private string[] geenFilter()
+        private List<string> geenFilter()
         {
-            if (metaList == null) return new string[0];
+            if (metaList == null) return null;
             return (from g in metaList.metadataRecords
-                    select g.title).ToArray();
+                    select g.title).ToList<string>();
         }
 
         private void search()

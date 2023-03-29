@@ -143,7 +143,6 @@
       <HintPath>D:\old\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -380,7 +379,6 @@
     <AddInContent Include="Images\geopuntDataCatalogusCmd.png" />
     <AddInContent Include="Images\geopuntElevationTool.png" />
     <AddInContent Include="Images\geopuntElevationTool.cur" />
-    <AddInContent Include="Images\getMousePointTool.png" />
     <AddInContent Include="Images\getMousePointTool.cur" />
     <AddInContent Include="Images\geopuntReverseCmd.png" />
     <AddInContent Include="Images\geopuntElevationCmd.png" />
@@ -391,7 +389,6 @@
     <Content Include="Images\poiZoek.png" />
     <Content Include="Images\prik.png" />
     <Content Include="Images\reverseZoek.png" />
-    <AddInContent Include="Images\testBtn.png" />
     <Content Include="Images\select.png" />
     <Content Include="Images\validAll.png" />
     <Content Include="Images\zoek.png" />

@@ -118,7 +118,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.contentSplitContainer.Location = new System.Drawing.Point(10, 119);
-            this.contentSplitContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.contentSplitContainer.Margin = new System.Windows.Forms.Padding(2);
             this.contentSplitContainer.Name = "contentSplitContainer";
             // 
             // contentSplitContainer.Panel1
@@ -139,7 +139,7 @@
             this.searchResultsList.FormattingEnabled = true;
             this.searchResultsList.HorizontalScrollbar = true;
             this.searchResultsList.Location = new System.Drawing.Point(0, 0);
-            this.searchResultsList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchResultsList.Margin = new System.Windows.Forms.Padding(2);
             this.searchResultsList.Name = "searchResultsList";
             this.searchResultsList.Size = new System.Drawing.Size(223, 306);
             this.searchResultsList.TabIndex = 0;
@@ -149,7 +149,7 @@
             // 
             this.webView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webView.Location = new System.Drawing.Point(0, 0);
-            this.webView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webView.Margin = new System.Windows.Forms.Padding(2);
             this.webView.MinimumSize = new System.Drawing.Size(15, 16);
             this.webView.Name = "webView";
             this.webView.Size = new System.Drawing.Size(462, 306);
@@ -160,7 +160,7 @@
             this.OpenArcgisBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OpenArcgisBtn.Enabled = false;
             this.OpenArcgisBtn.Location = new System.Drawing.Point(474, 433);
-            this.OpenArcgisBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OpenArcgisBtn.Margin = new System.Windows.Forms.Padding(2);
             this.OpenArcgisBtn.Name = "OpenArcgisBtn";
             this.OpenArcgisBtn.Size = new System.Drawing.Size(137, 28);
             this.OpenArcgisBtn.TabIndex = 11;
@@ -173,7 +173,7 @@
             this.addWMSbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.addWMSbtn.Enabled = false;
             this.addWMSbtn.Location = new System.Drawing.Point(357, 433);
-            this.addWMSbtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addWMSbtn.Margin = new System.Windows.Forms.Padding(2);
             this.addWMSbtn.Name = "addWMSbtn";
             this.addWMSbtn.Size = new System.Drawing.Size(112, 28);
             this.addWMSbtn.TabIndex = 12;
@@ -185,7 +185,7 @@
             // 
             this.closeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeBtn.Location = new System.Drawing.Point(616, 433);
-            this.closeBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(82, 28);
             this.closeBtn.TabIndex = 13;
@@ -204,7 +204,7 @@
             "Download",
             "Arcgis service"});
             this.filterResultsCbx.Location = new System.Drawing.Point(10, 433);
-            this.filterResultsCbx.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterResultsCbx.Margin = new System.Windows.Forms.Padding(2);
             this.filterResultsCbx.Name = "filterResultsCbx";
             this.filterResultsCbx.Size = new System.Drawing.Size(100, 21);
             this.filterResultsCbx.TabIndex = 14;
@@ -216,9 +216,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filterBox.Controls.Add(this.filterPane);
             this.filterBox.Location = new System.Drawing.Point(9, 41);
-            this.filterBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterBox.Margin = new System.Windows.Forms.Padding(2);
             this.filterBox.Name = "filterBox";
-            this.filterBox.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.filterBox.Padding = new System.Windows.Forms.Padding(6);
             this.filterBox.Size = new System.Drawing.Size(688, 74);
             this.filterBox.TabIndex = 15;
             this.filterBox.TabStop = false;
@@ -241,7 +241,7 @@
             this.filterPane.Controls.Add(this.orgName, 0, 1);
             this.filterPane.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterPane.Location = new System.Drawing.Point(6, 19);
-            this.filterPane.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.filterPane.Margin = new System.Windows.Forms.Padding(2);
             this.filterPane.Name = "filterPane";
             this.filterPane.RowCount = 2;
             this.filterPane.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -278,7 +278,7 @@
             this.typeCbx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.typeCbx.FormattingEnabled = true;
             this.typeCbx.Location = new System.Drawing.Point(474, 2);
-            this.typeCbx.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.typeCbx.Margin = new System.Windows.Forms.Padding(2);
             this.typeCbx.Name = "typeCbx";
             this.typeCbx.Size = new System.Drawing.Size(200, 21);
             this.typeCbx.TabIndex = 16;
@@ -290,7 +290,7 @@
             this.INSPIREthemeCbx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.INSPIREthemeCbx.FormattingEnabled = true;
             this.INSPIREthemeCbx.Location = new System.Drawing.Point(474, 26);
-            this.INSPIREthemeCbx.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.INSPIREthemeCbx.Margin = new System.Windows.Forms.Padding(2);
             this.INSPIREthemeCbx.Name = "INSPIREthemeCbx";
             this.INSPIREthemeCbx.Size = new System.Drawing.Size(200, 21);
             this.INSPIREthemeCbx.TabIndex = 13;
@@ -302,7 +302,7 @@
             this.orgNameCbx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.orgNameCbx.FormattingEnabled = true;
             this.orgNameCbx.Location = new System.Drawing.Point(137, 26);
-            this.orgNameCbx.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.orgNameCbx.Margin = new System.Windows.Forms.Padding(2);
             this.orgNameCbx.Name = "orgNameCbx";
             this.orgNameCbx.Size = new System.Drawing.Size(198, 21);
             this.orgNameCbx.TabIndex = 12;
@@ -314,7 +314,7 @@
             this.GDIthemeCbx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GDIthemeCbx.FormattingEnabled = true;
             this.GDIthemeCbx.Location = new System.Drawing.Point(137, 2);
-            this.GDIthemeCbx.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GDIthemeCbx.Margin = new System.Windows.Forms.Padding(2);
             this.GDIthemeCbx.Name = "GDIthemeCbx";
             this.GDIthemeCbx.Size = new System.Drawing.Size(198, 21);
             this.GDIthemeCbx.TabIndex = 10;
