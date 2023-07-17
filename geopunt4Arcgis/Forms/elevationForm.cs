@@ -368,7 +368,8 @@ namespace geopunt4Arcgis
 
         private void addDhmBtn_Click(object sender, EventArgs e)
         {
-           geopuntHelper.addWMS2map(view.FocusMap, "https://geoservices.informatievlaanderen.be/raadpleegdiensten/DHMV/wms?", 40, "DHMVII_DTM_1m");
+           geopuntHelper.addWMS2map(view.FocusMap,
+               "https://geo.api.vlaanderen.be/dhmv/wms?request=getcapabilities&version=1.3.0&service=wms?", 40, "DHMVII_DTM_1m");
         }
         #endregion
 

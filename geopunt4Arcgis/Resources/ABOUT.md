@@ -15,9 +15,7 @@ Functies
  
 Systeem vereisten
 -----------------
-
-- Minimaal: Windows XP, ArcGIS Desktop versie 10.0 sp4 of hoger, .net-framework versie 3.5
-- Aanbevolen: Windows7, ArcGIS Desktop versie 10.2 of hoger, .net-framework versie 4.0
+- Minimaal: Windows XP, ArcGIS Desktop versie 10.2 of hoger, .net-framework versie 4.0
 - Een verbinding met het internet, restrictieve firewalls kunnen mogelijk de connectie blokkeren.
 
 Doelstelling
@@ -34,15 +32,14 @@ Sommige diensten aangeboden door geopunt zijn niet gebaseerd op een open standaa
 
 Het gaat onder andere over:
 
-- **Geocoderen**, gebaseerd op de officiële [CRAB](https://www.agiv.be/producten/crab) adressen-databank.
+- **Geocoderen**, gebaseerd op het officiële [adressenregister](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/gebouwen-en-adressenregister) van de vlaamse overhied.
 - **Interessante locaties zoeken** (points of interest). Typisch locaties beschikbaar gesteld door Vlaamse instanties.
 - **Innames van openbaar domein**, van het Generiek Informatieplatform Openbaar Domein. Het [GIPOD](http://gipod.api.agiv.be/#!index.md) is de officiële databank met manifestaties, wegenwerken en andere obstructies op het openbaar domein.
-- **Hoogteprofiel**, een dienst waarmee de hoogte, in digitaal hoogte model Vlaanderen, langsheen een lijn kan worden opgevraagd en gepresenteerd. De brondata is [DHM-Vlaanderen](https://www.agiv.be/producten/digitaal-hoogtemodel-vlaanderen).
 - **Percelen zoeken**, op getrapte wijze op de basis van gemeente naar departement, sectie dan naar perceelnummer in KADMAP.
-- **Metadata zoekdienst**, dienst om datasets te zoeken via het [metadatacenter](https://metadata.geopunt.be) van Geopunt. Deze bevat ondermeer metadatasets van AGIV, het samenwerkingsverband MercatorNet en DOV. 
+- **Metadata zoekdienst**, dienst om datasets te zoeken via het [metadatacenter](https://metadata.vlaanderen.be/), Deze bevat ondermeer metadatasets van AGIV, het samenwerkingsverband MercatorNet en DOV. 
 
 Om GIS gebruikers binnen en buiten de Vlaamse Overheid dezelfde functionaliteit ter beschikking te stellen als aangeboden in Geopunt, wenst AGIV deze gebruikers te voorzien van software plug-ins die deze functionaliteit geïntegreerd aanbieden binnen de meest gangbare GIS desktop  omgevingen. 
-Op basis van voorafgaand overleg met de GDI-Vlaanderen gemeenschap werd volgende GIS software geselecteerd: Quantum GIS (QGIS) v2.0 Dufour en ESRI ArcMap v10. 
+Op basis van voorafgaand overleg met de GDI-Vlaanderen gemeenschap werd volgende GIS software geselecteerd: Quantum GIS (QGIS) en ESRI ArcMap. 
 
 Wat is Geopunt ?
 --------------
@@ -69,5 +66,5 @@ Professioneel werk ik op desktop GIS, voornamelijk Arcgis en QGIS en op webmappi
 #### Online Bronnen:
 
 - *[http://www.geopunt.be](http://www.geopunt.be/voor-experts/geopunt-plugins)* 
-- *[https://www.agiv.be/](https://www.agiv.be/)*
+- *<https://www.vlaanderen.be/digitaal-vlaanderen>*
 
